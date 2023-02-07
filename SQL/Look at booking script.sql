@@ -1,4 +1,4 @@
-
+USE BookingSystem
 
 select v.Name,vi.TableID,vi.Pax,vi.Status from VenueItems vi join status s on vi.Status= s.ID	
 						join Venues v on vi.VenueID = v.VenueID
