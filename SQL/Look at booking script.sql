@@ -6,13 +6,7 @@ select v.Name,vi.TableID,vi.Pax,vi.Status from VenueItems vi join status s on vi
 						join Users u on vo.UserID = u.UserID
 						--join bookings b on b.VenueID = v.VenueID
 
-
-
-
-
-
-
-						
+					
 select u.Firstname+' '+u.Lastname 'Full Name',u.Email,u.Phone,b.Pax 'Amount of people',vi.Pax 'Table size',b.Note,b.Time,v.name 'Venue' from bookings b 
 							join users u on u.UserID = b.UserID 
 							join Venues v on b.VenueID = v.VenueID
@@ -27,3 +21,10 @@ select u.Firstname+' '+u.Lastname 'Full Name',u.Email,u.Phone,b.Pax 'Amount of p
 						select * from VenueItems
 
 						select * from status
+
+						/*update VenueItems 
+						set Status = 2
+						where tableid = 1*/
+
+						select vi.TableID,s.status from VenueItems vi join status s on s.ID = vi.Status  
+						
