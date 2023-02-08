@@ -99,4 +99,18 @@ CREATE TABLE Regions(
 	Country varchar(10)
 )
 
+-- log data 
 
+
+CREATE TABLE deletebookinglog
+(
+ID int,
+UserID int,
+VenueID int,
+Time datetime,
+Pax int,
+Note varchar(MAX),
+TableID int,
+status int,
+deletedtime datetime
+)
