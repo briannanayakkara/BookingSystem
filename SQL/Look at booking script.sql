@@ -17,6 +17,8 @@ select b.ID,v.Name,vi.TableID,vi.Pax,vi.Status,s.Status,b.Time from VenueItems v
 							join VenueOwners vo on v.VenueID = vo.VenueID
 							join Users uvi on vo.UserID = uvi.UserID
 							join status s on b.status = s.ID
+
+							select * from  VenueItems where VenueID = 3
 							
 				
 						
@@ -28,9 +30,7 @@ select b.ID,v.Name,vi.TableID,vi.Pax,vi.Status,s.Status,b.Time from VenueItems v
 
 						select * from status
 
-						/*update VenueItems 
-						set Status = 2
-						where tableid = 1*/
+						
 
 						select vi.TableID,s.status from VenueItems vi join status s on s.ID = vi.Status  
 						

@@ -1,8 +1,8 @@
-DECLARE	@username varchar(50) ='brian'
-DECLARE	@VName varchar(50) = 'bar7'
-DECLARE	@datetime datetime ='2023-03-05 20:55'
+DECLARE	@username varchar(50) ='niko'
+DECLARE	@VName varchar(50) = 'bar9'
+DECLARE	@datetime datetime ='2023-01-05 20:55'
 DECLARE	@Pax int =2
-DECLARE	@note varchar(max)='Gay OG'
+DECLARE	@note varchar(max)='Reunion'
 
 exec CreateBooking
 	@username,
@@ -15,7 +15,7 @@ exec CreateBooking
 
 	/*
 
-	DECLARE	@username varchar(50) ='brian'
+DECLARE	@username varchar(50) ='brian'
 DECLARE	@VName varchar(50) = 'bar7'
 DECLARE	@datetime datetime ='2023-03-05 20:55'
 DECLARE	@Pax int =2
