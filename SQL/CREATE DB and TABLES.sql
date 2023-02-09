@@ -70,8 +70,8 @@ CREATE TABLE VenueItems(
 	TableID int IDENTITY(1,1) PRIMARY KEY,
 	TableNr int,
 	Pax int,
-	TableType varchar(50),
-	Status int FOREIGN KEY REFERENCES status(ID)
+	TableType varchar(50)
+	--,Status int FOREIGN KEY REFERENCES status(ID)
 )
 CREATE TABLE VenueOwners(
 	UserID int FOREIGN KEY REFERENCES Users(UserID),

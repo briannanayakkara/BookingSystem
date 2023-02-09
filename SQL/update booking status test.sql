@@ -1,5 +1,5 @@
 DECLARE @username varchar(50) = 'brian'
-DECLARE @BoID int =  3
+DECLARE @BoID int =  7
 DECLARE @Status int = 11
 
 exec UpdateBookingStatus
@@ -7,8 +7,8 @@ exec UpdateBookingStatus
 	@BoID,
 	@Status
 
-	select * from Bookings
-		select b.ID,u.Firstname+' '+u.Lastname 'Full Name',u.Email,u.Phone,b.Pax 'Amount of people',vi.Pax 'Table size',b.Note,b.Time,v.name 'Venue',uvi.Username 'Venue owner' ,s.Status from bookings b 
+	select * from status
+		select b.ID,u.Firstname+' '+u.Lastname 'Full Name',u.Email,u.Phone,b.Pax 'Amount of people',vi.Pax 'Table size',b.Note,b.Time,v.name 'Venue',uvi.Firstname+' '+uvi.Lastname 'Venue owner' ,s.Status from bookings b 
 							join users u on u.UserID = b.UserID 
 							join Venues v on b.VenueID = v.VenueID
 							join VenueItems vi on b.TableID = vi.TableID
