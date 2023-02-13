@@ -11,3 +11,4 @@ exec DeleteUser
 
 	select * from Users
 	select * from UserLogin
+
