@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Data;
 using BookingAPI.Models;
 using Newtonsoft.Json;
-using BookingAPI.Common;
+
 
 namespace BookingAPI.Controllers
 {
@@ -178,6 +178,9 @@ namespace BookingAPI.Controllers
         [HttpPut("EditUser/{UserID}")]
         public String EditUser(int UserID, int? AdminLevel,string? Fname,string? SName, string? UserName, string? Email, string? Phone, string? Region, string? Birthday, string? pass)
         {
+            if (pass != null)
+            { pass = BCrypt.Net.BCrypt.HashPassword(pass); }
+
             string q = @"exec UpdateUser
                 '" + AdminLevel + @"','"
                   + Fname + @"','"
