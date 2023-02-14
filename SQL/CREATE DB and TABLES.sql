@@ -50,7 +50,7 @@ CREATE TABLE Users(
 CREATE TABLE UserLogin(
 	UserID int FOREIGN KEY REFERENCES Users(UserID),
 	Username VARCHAR (20),
-	password NVARCHAR (20),
+	password nvarchar(max),
 )
 
 --- Venue info

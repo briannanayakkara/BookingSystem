@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Data;
 using BookingAPI.Models;
 using Newtonsoft.Json;
+using BookingAPI.Common;
 
 namespace BookingAPI.Controllers
 {
@@ -23,6 +24,7 @@ namespace BookingAPI.Controllers
         [Route("CreateUser")]
         public JsonResult CreateUser(int AdminLevel, string Fname, string SName, string UserName, string Email, string Phone, string Region, string Birthday, string pass)
         {
+            pass = BCrypt.Net.BCrypt.HashPassword(pass);
             string q = @"exec CreateUser
                 '" + AdminLevel + @"','"
                 + Fname + @"','"
@@ -51,6 +53,54 @@ namespace BookingAPI.Controllers
             }
 
             return new JsonResult("New employee added Succesfull");
+        }
+
+
+        [HttpGet("LogInCheck")]
+
+        public string LogInCheck(string username,string password)
+        {
+            string q = @"select * from UserLogin where username ='" + username +"'";
+            string p_;
+            DataTable dt = new DataTable();
+            string con = _configuration.GetConnectionString("BookingSystem");
+            SqlDataReader sdr;
+            List<UserLogin> ulList = new List<UserLogin>();
+            Response r = new Response();
+            using (SqlConnection cnn = new SqlConnection(con))
+            {
+                cnn.Open();
+                using (SqlCommand cmd = new SqlCommand(q, cnn))
+                {
+                    sdr = cmd.ExecuteReader();
+                    dt.Load(sdr);
+                    sdr.Close();
+                    cnn.Close();
+
+                }
+            }
+            if (dt.Rows.Count > 0)
+            {
+                UserLogin ul = new UserLogin();
+                ul.UserName = Convert.ToString(dt.Rows[0]["Username"]);
+                ul.Password = Convert.ToString(dt.Rows[0]["password"]);
+                ulList.Add(ul);
+                bool isValidPassword = BCrypt.Net.BCrypt.Verify(password, ul.Password);
+
+                if (isValidPassword)
+                {
+                    return JsonConvert.SerializeObject("Log in successfull");
+
+                }
+                else return JsonConvert.SerializeObject("invalid password");
+            }
+            else
+            {
+                r.StatusCode = 100;
+                r.Message = "No Data found";
+                return JsonConvert.SerializeObject(r);
+
+            }
         }
 
         [HttpGet("GetAllUsers")]
@@ -156,12 +206,13 @@ namespace BookingAPI.Controllers
                 }
             }
 
-            //return JsonConvert.SerializeObject(q);
-            return JsonConvert.SerializeObject("Eployee " + UserName + " has been updated");
+            
+            return JsonConvert.SerializeObject(dt);
+
         }
 
         [HttpDelete("DeleteUser/{UserID}")]
-        public JsonResult DeleteUser(int UserID, int? adminL, string? pass)
+        public string DeleteUser(int UserID, int? adminL, string? pass)
         {
             string q = @"exec DeleteUser
                 '" + adminL + @"','"
@@ -183,9 +234,9 @@ namespace BookingAPI.Controllers
 
                 }
             }
+            return JsonConvert.SerializeObject(dt);
 
-            return new JsonResult(q);
-           // return new JsonResult("Employee ID = " + UserID + " has been removed from the DB");
+            
         }
     }
 }

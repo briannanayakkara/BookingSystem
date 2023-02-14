@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "6xz7JPzrXr+s1lOvbQgXbVKCWTkX534lwYYRxDrEjNQEk8150oDU+jR+m4jbMADtDCT2aXfmrYKMnfY2dnQoeQ==",
+  "dgSpecHash": "FQRFEKr3d3g6B6c+UBmbvZy1Z6v1UyEJjPYOjJcyEc1H3FFUB6hyTzg9fW3kM/VFXJrIVEBsxXMsHpsB5SlbGA==",
   "success": true,
   "projectFilePath": "C:\\Users\\dimal\\Desktop\\Final Project\\BookingSystem\\VS\\API\\BookingAPI\\BookingAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\dimal\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\dimal\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\6.0.0\\microsoft.aspnetcore.jsonpatch.6.0.0.nupkg.sha512",
     "C:\\Users\\dimal\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\6.0.0\\microsoft.aspnetcore.mvc.newtonsoftjson.6.0.0.nupkg.sha512",
     "C:\\Users\\dimal\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
