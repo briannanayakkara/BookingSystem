@@ -6,7 +6,7 @@ namespace BookingAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VeluesController : ControllerBase
+    public class VenuesController : ControllerBase
     {
         // GET: api/<VeluesController>
         [HttpGet]

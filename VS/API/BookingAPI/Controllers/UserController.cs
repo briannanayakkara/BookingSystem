@@ -25,17 +25,10 @@ namespace BookingAPI.Controllers
         public JsonResult CreateUser(int AdminLevel, string Fname, string SName, string UserName, string Email, string Phone, string Region, string Birthday, string pass)
         {
             pass = BCrypt.Net.BCrypt.HashPassword(pass);
-            string q = @"exec CreateUser
-                '" + AdminLevel + @"','"
-                + Fname + @"','"
-                + SName + @"','"
-                + UserName + @"','"
-                + Email + @"','"
-                + Phone + @"','"
-                + Region + @"','"
-                + Birthday + @"','"
-                + pass + @"'";
-         
+
+            string q = "exec CreateUser @AdminLvl,@firstname,@lastname,@username,@email,@phone,@region,@bday,@pass";
+
+
 
             DataTable dt = new DataTable();
             string con = _configuration.GetConnectionString("BookingSystem");
@@ -44,6 +37,16 @@ namespace BookingAPI.Controllers
                 cnn.Open();
                 using (SqlCommand cmd = new SqlCommand(q, cnn))
                 {
+                    cmd.Parameters.Add("@AdminLvl", SqlDbType.Int).Value = AdminLevel;
+                    cmd.Parameters.Add("@firstname", SqlDbType.VarChar).Value = Fname;
+                    cmd.Parameters.Add("@lastname", SqlDbType.VarChar).Value = SName;
+                    cmd.Parameters.Add("@username", SqlDbType.VarChar).Value = UserName;
+                    cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = Email;
+                    cmd.Parameters.Add("@phone", SqlDbType.VarChar).Value = Phone;
+                    cmd.Parameters.Add("@region", SqlDbType.VarChar).Value = Region;
+                    cmd.Parameters.Add("@bday", SqlDbType.VarChar).Value = Birthday;
+                    cmd.Parameters.Add("@pass", SqlDbType.VarChar).Value = pass;
+
                     SqlDataReader sdr = cmd.ExecuteReader();
                     dt.Load(sdr);
                     sdr.Close();

@@ -22,9 +22,10 @@ namespace BookingAPI.Controllers
         }
         // GET: api/<BookingsController>/ID
         [HttpGet("GetAllBookings")]
-        public string GetAllBookings(string Usernmae, string VenueName)
+        public string GetAllBookings(string username, string VenueName)
         {
-            string q = "exec [GetBookings] "+ Usernmae+","+ VenueName;
+
+            string q = "exec [GetBookings] @Username, @VenueName";
 
             DataTable dt = new DataTable();
             string con = _configuration.GetConnectionString("BookingSystem");
@@ -35,6 +36,8 @@ namespace BookingAPI.Controllers
                 cnn.Open();
                 using (SqlCommand cmd = new SqlCommand(q, cnn))
                 {
+                    cmd.Parameters.Add("@Username", SqlDbType.VarChar).Value = username;
+                    cmd.Parameters.Add("@VenueName", SqlDbType.VarChar).Value = VenueName;
                     sdr = cmd.ExecuteReader();
                     dt.Load(sdr);
                     sdr.Close();
