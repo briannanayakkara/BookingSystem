@@ -23,7 +23,7 @@ namespace BookingAPI.Controllers
 
         [HttpPost] 
         [Route("CreateUser/{AdminLevel}/{Fname}/{SName}/{UserName}/{Email}/{Phone}/{Region}/{Birthday}/{pass}")]
-        public async Task<ActionResult<JsonResult>> CreateUser(int AdminLevel, string Fname, string SName, string UserName, string Email, string Phone, string Region, string Birthday, string pass)
+        public async Task<ActionResult<string>> CreateUser(int AdminLevel, string Fname, string SName, string UserName, string Email, string Phone, string Region, string Birthday, string pass)
         {
             pass = BCrypt.Net.BCrypt.HashPassword(pass);
 
@@ -56,7 +56,7 @@ namespace BookingAPI.Controllers
                 }
             }
 
-            return new JsonResult("New employee added Succesfull");
+            return Ok("New employee added Succesfull");
         }
 
 
