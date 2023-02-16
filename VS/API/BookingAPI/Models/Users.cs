@@ -2,19 +2,15 @@
 {
     public class Users
     {
-        public int? Id { get; set; }
-
-        public string? UserName { get; set; }
-
-        public string? FName  { get; set; }
-        public string? SName { get; set; }
-        public string? Email { get; set; }
-        public string? Phone { get; set; }
-        public string? Region { get; set; }
-        public string? Birthday { get; set; }
-        public int? AdminLevel { get; set; }
-
-
+        public int UserID { get; set; }
+        public string Username { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Region { get; set; }
+        public DateTime Birthday { get; set; }
+        public int AdminLevel { get; set; }
 
 
 

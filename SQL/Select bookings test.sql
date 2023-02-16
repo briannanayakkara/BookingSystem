@@ -1,7 +1,8 @@
-declare @username varchar(50) ='dim',
-		@VName varchar(20) ='bar2',
-		@date varchar(50) = null,
-		@status  int = null
-exec [GetBookings] @username,@VName,@date,@status
+declare @username varchar(50) ='brian',
+		@VName varchar(20) ='bar1',
+		@date varchar(50) = '2023-02-09'
+
+
+exec [GetBookings] @username,@VName,@date
 
 	

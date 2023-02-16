@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Data;
 using BookingAPI.Models;
 using Newtonsoft.Json;
-
+using Dapper;
 
 namespace BookingAPI.Controllers
 {
@@ -20,9 +20,10 @@ namespace BookingAPI.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost]
-        [Route("CreateUser")]
-        public JsonResult CreateUser(int AdminLevel, string Fname, string SName, string UserName, string Email, string Phone, string Region, string Birthday, string pass)
+
+        [HttpPost] 
+        [Route("CreateUser/{AdminLevel}/{Fname}/{SName}/{UserName}/{Email}/{Phone}/{Region}/{Birthday}/{pass}")]
+        public async Task<ActionResult<JsonResult>> CreateUser(int AdminLevel, string Fname, string SName, string UserName, string Email, string Phone, string Region, string Birthday, string pass)
         {
             pass = BCrypt.Net.BCrypt.HashPassword(pass);
 
@@ -32,7 +33,7 @@ namespace BookingAPI.Controllers
 
             DataTable dt = new DataTable();
             string con = _configuration.GetConnectionString("BookingSystem");
-            using (SqlConnection cnn = new SqlConnection(con))
+           await using (SqlConnection cnn = new SqlConnection(con))
             {
                 cnn.Open();
                 using (SqlCommand cmd = new SqlCommand(q, cnn))
@@ -61,20 +62,22 @@ namespace BookingAPI.Controllers
 
         [HttpGet("LogInCheck")]
 
-        public string LogInCheck(string username,string password)
+        public async Task<ActionResult<string>> LogInCheck(string username,string password)
         {
-            string q = @"select * from UserLogin where username ='" + username +"'";
-            string p_;
+            string q = @"select * from UserLogin where username = @username";
+            
             DataTable dt = new DataTable();
             string con = _configuration.GetConnectionString("BookingSystem");
             SqlDataReader sdr;
             List<UserLogin> ulList = new List<UserLogin>();
             Response r = new Response();
-            using (SqlConnection cnn = new SqlConnection(con))
+            await using (SqlConnection cnn = new SqlConnection(con))
             {
                 cnn.Open();
                 using (SqlCommand cmd = new SqlCommand(q, cnn))
                 {
+                    cmd.Parameters.Add("@username", SqlDbType.VarChar).Value = username;
+
                     sdr = cmd.ExecuteReader();
                     dt.Load(sdr);
                     sdr.Close();
@@ -107,95 +110,40 @@ namespace BookingAPI.Controllers
         }
 
         [HttpGet("GetAllUsers")]
-
-        public string GetAllUsers()
+        public async Task<ActionResult<List<Users>>> GetAllUsers()
         {
-            string q = "select * from users";
 
-            DataTable dt = new DataTable();
-            string con = _configuration.GetConnectionString("BookingSystem");
-            SqlDataReader sdr;
-            Response r = new Response();
-            using (SqlConnection cnn = new SqlConnection(con))
-            {
-                cnn.Open();
-                using (SqlCommand cmd = new SqlCommand(q, cnn))
-                {
-                    sdr = cmd.ExecuteReader();
-                    dt.Load(sdr);
-                    sdr.Close();
-                    cnn.Close();
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            IEnumerable<Users> u = await SelectAllUsers(con);
 
-                }
-            }
-            if (dt.Rows.Count > 0)
-            {
-                return JsonConvert.SerializeObject(dt);
-            }
-            else
-            {
-                r.StatusCode = 100;
-                r.Message = "No Data found";
-                return JsonConvert.SerializeObject(r);
-
-            }
+            return Ok(u);
         }
+      
 
+        private static async Task<IEnumerable<Users>> SelectAllUsers(SqlConnection con)
+        {
+            return await con.QueryAsync<Users>("select * from Users");
+        }
 
         [HttpGet("GetUser/{UserID}")]
-        public string GetUser(int UserID)
+        public async Task<ActionResult<List<Users>>> GetUser(int UserID)
         {
-            string q = @"select * from users where userID =" + UserID + @"";
 
-            DataTable dt = new DataTable();
-            string con = _configuration.GetConnectionString("BookingSystem");
-            SqlDataReader sdr;
-            Response r = new Response();
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            var u = await con.QueryAsync<Users>("select * from users where userID = @userID", new { userID = UserID });
 
-            using (SqlConnection cnn = new SqlConnection(con))
-            {
-                cnn.Open();
-                using (SqlCommand cmd = new SqlCommand(q, cnn))
-                {
-                    sdr = cmd.ExecuteReader();
-                    dt.Load(sdr);
-                    sdr.Close();
-                    cnn.Close();
-
-                }
-            }
-            if (dt.Rows.Count > 0)
-            {
-                return JsonConvert.SerializeObject(dt);
-            }
-            else
-            {
-                r.StatusCode = 100;
-                r.Message = "No Data found";
-                return JsonConvert.SerializeObject(r);
-
-            }
-
+            return Ok(u);
         }
 
-        [HttpPut("EditUser/{UserID}")]
-        public String EditUser(int UserID, int? AdminLevel,string? Fname,string? SName, string? UserName, string? Email, string? Phone, string? Region, string? Birthday, string? pass)
+        [HttpPut("EditUser/{UserID}/{AdminLevel}/{Fname}/{SName}/{UserName}/{Email}/{Phone}/{Region}/{Birthday}/{pass}")]
+        public String EditUser(int UserID, int? AdminLevel, string? Fname, string? SName, string? UserName, string? Email, string? Phone, string? Region, string? Birthday, string? pass)
         {
             if (pass != null)
             { pass = BCrypt.Net.BCrypt.HashPassword(pass); }
+            
 
-            string q = @"exec UpdateUser
-                '" + AdminLevel + @"','"
-                  + Fname + @"','"
-                  + SName + @"','"
-                  + UserName + @"','"
-                  + Email + @"','"
-                  + Phone + @"','"
-                  + Region + @"','"
-                  + Birthday + @"','"
-                  + pass + @"','"
-                  + UserID + @"'";
-
+            string q = @"exec [UpdateUser] @AdminLvl,@firstname,@lastname,@username,@email,@phone,@region,@bday,@pass,@ID";
+            
             DataTable dt = new DataTable();
             string con = _configuration.GetConnectionString("BookingSystem");
             SqlDataReader sdr;
@@ -204,6 +152,17 @@ namespace BookingAPI.Controllers
                 cnn.Open();
                 using (SqlCommand cmd = new SqlCommand(q, cnn))
                 {
+                    cmd.Parameters.Add("@AdminLvl", SqlDbType.Int).Value = AdminLevel;
+                    cmd.Parameters.Add("@firstname", SqlDbType.VarChar).Value = Fname;
+                    cmd.Parameters.Add("@lastname", SqlDbType.VarChar).Value = SName;
+                    cmd.Parameters.Add("@username", SqlDbType.VarChar).Value = UserName;
+                    cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = Email;
+                    cmd.Parameters.Add("@phone", SqlDbType.VarChar).Value = Phone;
+                    cmd.Parameters.Add("@region", SqlDbType.VarChar).Value = Region;
+                    cmd.Parameters.Add("@bday", SqlDbType.VarChar).Value = Birthday;
+                    cmd.Parameters.Add("@pass", SqlDbType.VarChar).Value = pass;
+                    cmd.Parameters.Add("@ID", SqlDbType.VarChar).Value = UserID;
+
                     sdr = cmd.ExecuteReader();
                     dt.Load(sdr);
                     sdr.Close();
@@ -218,32 +177,17 @@ namespace BookingAPI.Controllers
         }
 
         [HttpDelete("DeleteUser/{UserID}")]
-        public string DeleteUser(int UserID, int? adminL, string? pass)
+        public async Task<ActionResult<List<Users>>> DeleteUser(int UserID)
         {
-            string q = @"exec DeleteUser
-                '" + adminL + @"','"
-                   + UserID + @"','"
-                   + pass + @"'";
 
-            DataTable dt = new DataTable();
-            string con = _configuration.GetConnectionString("BookingSystem");
-            SqlDataReader sdr;
-            using (SqlConnection cnn = new SqlConnection(con))
-            {
-                cnn.Open();
-                using (SqlCommand cmd = new SqlCommand(q, cnn))
-                {
-                    sdr = cmd.ExecuteReader();
-                    dt.Load(sdr);
-                    sdr.Close();
-                    cnn.Close();
-
-                }
-            }
-            return JsonConvert.SerializeObject(dt);
-
-            
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            await con.ExecuteAsync("exec DeleteUser @ID", new { ID = UserID});
+            return Ok(await SelectAllUsers(con));
         }
+
+       
     }
+
+    //internal record NewRecord(string Pass);
 }
 

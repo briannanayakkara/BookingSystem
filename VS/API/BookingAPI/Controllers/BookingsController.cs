@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Data;
 using BookingAPI.Models;
 using Newtonsoft.Json;
-
+using Dapper;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BookingAPI.Controllers
@@ -20,112 +20,31 @@ namespace BookingAPI.Controllers
         {
             _configuration = configuration;
         }
-        // GET: api/<BookingsController>/ID
-        [HttpGet("GetAllBookings")]
-        public string GetAllBookings(string username, string VenueName)
+
+
+        [HttpGet("GetBookings/{Usernmae}/{VenueName}/{Date}")]
+        public async Task<ActionResult<List<Bookings>>> GetBookings(string Usernmae, string VenueName, DateTime Date)
         {
-
-            string q = "exec [GetBookings] @Username, @VenueName";
-
-            DataTable dt = new DataTable();
-            string con = _configuration.GetConnectionString("BookingSystem");
-            SqlDataReader sdr;
-            Response r = new Response();
-            using (SqlConnection cnn = new SqlConnection(con))
-            {
-                cnn.Open();
-                using (SqlCommand cmd = new SqlCommand(q, cnn))
-                {
-                    cmd.Parameters.Add("@Username", SqlDbType.VarChar).Value = username;
-                    cmd.Parameters.Add("@VenueName", SqlDbType.VarChar).Value = VenueName;
-                    sdr = cmd.ExecuteReader();
-                    dt.Load(sdr);
-                    sdr.Close();
-                    cnn.Close();
-
-                }
-            }
-            if (dt.Rows.Count > 0)
-            {
-                return JsonConvert.SerializeObject(dt);
-            }
-            else
-            {
-                r.StatusCode = 100;
-                r.Message = "No Data found";
-                return JsonConvert.SerializeObject(r);
-
-            }
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            var bookings = await con.QueryAsync<Bookings>("exec [GetBookings] @username,@VName,@date",
+                new { username = Usernmae, VName = VenueName, date = Date }) ;
+            
+            return Ok(bookings);
         }
 
         // GET api/<BookingsController>/5
-        [HttpGet("GetAllBookingsOnDate")]
-        public string GetAllBookingsOnDate(string Usernmae, string VenueName,string date)
+       
+        [HttpGet("GetAllBookingsStatus/{Usernmae}/{VenueName}/{FDate}/{TDate}/{StatusID}")]
+
+        public async Task<ActionResult<List<Bookings>>> GetAllBookingsStatus(string Usernmae, string VenueName, string FDate, string TDate, int StatusID)
         {
-            string q = "exec [GetBookings] '" + Usernmae + "','" + VenueName+"','"+ date+"'";
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            var bookings = await con.QueryAsync<Bookings>("exec [GetBookingsStatus] @username,@VName,@Fdate,@Tdate,@statusID",
+                new { username = Usernmae, VName = VenueName, Fdate = FDate, Tdate = TDate, statusID = StatusID });
 
-            DataTable dt = new DataTable();
-            string con = _configuration.GetConnectionString("BookingSystem");
-            SqlDataReader sdr;
-            Response r = new Response();
-            using (SqlConnection cnn = new SqlConnection(con))
-            {
-                cnn.Open();
-                using (SqlCommand cmd = new SqlCommand(q, cnn))
-                {
-                    sdr = cmd.ExecuteReader();
-                    dt.Load(sdr);
-                    sdr.Close();
-                    cnn.Close();
-
-                }
-            }
-            if (dt.Rows.Count > 0)
-            {
-                return JsonConvert.SerializeObject(dt);
-            }
-            else
-            {
-                r.StatusCode = 100;
-                r.Message = "No Data found";
-                return JsonConvert.SerializeObject(r);
-
-            }
+            return Ok(bookings);
         }
-
-        [HttpGet("GetAllBookingsOnDateAndStatus")]
-        public string GetAllBookingsOnDateAndStatus(string Usernmae, string VenueName, string date,int StatusID)
-        {
-            string q = "exec [GetBookings] '" + Usernmae + "','" + VenueName + "','" + date + "','"+ StatusID+"'";
-
-            DataTable dt = new DataTable();
-            string con = _configuration.GetConnectionString("BookingSystem");
-            SqlDataReader sdr;
-            Response r = new Response();
-            using (SqlConnection cnn = new SqlConnection(con))
-            {
-                cnn.Open();
-                using (SqlCommand cmd = new SqlCommand(q, cnn))
-                {
-                    sdr = cmd.ExecuteReader();
-                    dt.Load(sdr);
-                    sdr.Close();
-                    cnn.Close();
-
-                }
-            }
-            if (dt.Rows.Count > 0)
-            {
-                return JsonConvert.SerializeObject(dt);
-            }
-            else
-            {
-                r.StatusCode = 100;
-                r.Message = "No Data found";
-                return JsonConvert.SerializeObject(r);
-
-            }
-        }
+     
 
         // POST api/<BookingsController>
         [HttpPost]

@@ -18,6 +18,7 @@ exec CreateUser @AdminLvl,
 				@bday,@pass
 
 select * from users 
+
 select * from UserLogin
 
 
