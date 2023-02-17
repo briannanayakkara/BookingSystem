@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using BookingAPI.Models;
+using Dapper;
+using System.Data.SqlClient;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BookingAPI.Controllers
@@ -8,36 +10,59 @@ namespace BookingAPI.Controllers
     [ApiController]
     public class VenueItemsController : ControllerBase
     {
-        // GET: api/<VenueItemsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IConfiguration _configuration;
+
+        public VenueItemsController(IConfiguration configuration)
         {
-            return new string[] { "value1", "value2" };
+            _configuration = configuration;
+        }
+        // GET: api/<VenueItemsController>
+        [HttpGet("AllVenueItems")]
+        public async Task<ActionResult<List<VenueItems>>> GetAllVenuesItems()
+        {
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            var u = await con.QueryAsync<VenueItems>("select * from VenueItems");
+            return Ok(u);
+
         }
 
         // GET api/<VenueItemsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("GetVenueItemByTableID/{ID}")]
+        public async Task<ActionResult<List<VenueItems>>> GetVenueItemByTableID(int ID)
         {
-            return "value";
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            var u = await con.QueryAsync<VenueItems>("select * from VenueItems where TableID = @id", new { id = ID });
+            return Ok(u);
+
         }
 
         // POST api/<VenueItemsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("CreateVI")]
+        public async Task<ActionResult<List<CreateVi>>> CreateVI(CreateVi VenueI)
         {
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            var u = await con.ExecuteAsync("exec [CreateVenueItem] @username,@VName,@TableNr,@Pax,@Type", VenueI);
+            return Ok(u);
         }
 
         // PUT api/<VenueItemsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        //exec [UpdateVenueItem] @username,@VName,@TableNr,@Pax,@Type,@tableID
+        [HttpPut("UpdateVI")]
+        public async Task<ActionResult<List<CreateVi>>> UpdateVI(UpdateVi VenueI)
         {
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            var u = await con.ExecuteAsync("exec [UpdateVenueItem] @username,@VName,@TableNr,@Pax,@Type,@tableID", VenueI);
+            return Ok(u);
         }
 
+        //exec [DeleteVenueItem] @username,@VName,@tableID
         // DELETE api/<VenueItemsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("DeleteVI/{TableID}")]
+        public async Task<ActionResult<List<CreateVi>>> DeleteVI(string UserName,string VenueName,int TableID)
         {
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            var u = await con.ExecuteAsync("exec [DeleteVenueItem] @username,@VName,@tableID", new { username = UserName, VName = VenueName, tableID = TableID });
+            return Ok(u);
         }
     }
 }
