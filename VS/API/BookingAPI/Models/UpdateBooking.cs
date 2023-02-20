@@ -2,16 +2,18 @@
 {
     public class UpdateBooking
     {
+        public int? ID { get; set; }
 
-        public string username { get; set; }
-        public int BoID { get; set; }
-        public DateTime datetime { get; set; }
-        public string Pax { get; set; }
-        public string note { get; set; }
-        public int TableID { get; set; }
+        public string? VenueName { get; set; }
 
+        public string? Username { get; set; }
 
+        public DateTime? Datetime { get; set; }
 
+        public int? Pax { get; set; }
 
+        public string? Note { get; set; }
     }
+
+
 }

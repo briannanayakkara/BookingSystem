@@ -21,74 +21,227 @@ namespace BookingAPI.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet("GetAllBookings/{Usernmae}/{VenueName}")]
-        public async Task<ActionResult<List<SelectBookings>>> GetAllBookings(string Usernmae, string VenueName)
+        [HttpGet("GetBookingsByDate")]
+        public async Task<ActionResult<IEnumerable<BookingsByDate>>> GetBookingsByDate(string username, string venueName, DateTime date)
         {
             using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
-            var bookings = await con.QueryAsync<SelectBookings>("exec [GetBookings] @username,@VName",
-                new { username = Usernmae, VName = VenueName });
 
-            return Ok(bookings);
+            var venue = await con.QuerySingleOrDefaultAsync<Venues>(
+                "SELECT VenueID FROM Venues WHERE Name = @VenueName", new { VenueName = venueName });
+            if (venue == null)
+            {
+                return BadRequest("Venue does not exist");
+            }
+
+            var venueOwner = await con.QuerySingleOrDefaultAsync<VenueOwners>(
+                "SELECT UserID FROM VenueOwners WHERE VenueID = @VenueID AND UserID = (SELECT UserID FROM Users WHERE username = @username)",
+                new { VenueID = venue.VenueID, Username = username });
+            if (venueOwner == null)
+            {
+                return BadRequest("You are not an owner of this venue");
+            }
+
+            var bookings = await con.QueryAsync<BookingsByDate>(@"
+        SELECT 
+            b.ID, 
+            u.Firstname + ' ' + u.Lastname AS fullname, 
+            u.Email, 
+            u.Phone, 
+            b.Pax AS pax, 
+            vi.Pax AS tableSize, 
+            vi.TableNr, 
+            b.Note,
+            b.Time, 
+            v.name AS Venue, 
+            uvi.Firstname + ' ' + uvi.Lastname AS venueOwner, 
+            s.Status 
+        FROM 
+            bookings b 
+            JOIN users u ON u.UserID = b.UserID 
+            JOIN Venues v ON b.VenueID = v.VenueID
+            JOIN VenueItems vi ON b.TableID = vi.TableID
+            JOIN VenueOwners vo ON v.VenueID = vo.VenueID
+            JOIN Users uvi ON vo.UserID = uvi.UserID
+            JOIN status s ON b.status = s.ID
+        WHERE 
+            v.VenueID = @VenueID 
+            AND CONVERT(date, b.time, 111) = @date",
+                new { VenueID = venue.VenueID, Date = date.Date });
+
+            return bookings.ToList();
         }
 
-        [HttpGet("GetBookings/{Usernmae}/{VenueName}/{Date}")]
-        public async Task<ActionResult<List<SelectBookings>>> GetBookings(string Usernmae, string VenueName, DateTime Date)
-        {
-            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
-            var bookings = await con.QueryAsync<SelectBookings>("exec [GetBookings] @username,@VName,@date",
-                new { username = Usernmae, VName = VenueName, date = Date }) ;
-            
-            return Ok(bookings);
-        }
 
-        // GET api/<BookingsController>/5
-       
-        [HttpGet("GetAllBookingsStatus/{Usernmae}/{VenueName}/{FDate}/{TDate}/{StatusID}")]
-
-        public async Task<ActionResult<List<SelectBookings>>> GetAllBookingsStatus(string Usernmae, string VenueName, string FDate, string TDate, int StatusID)
-        {
-            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
-            var bookings = await con.QueryAsync<SelectBookings>("exec [GetBookingsStatus] @username,@VName,@Fdate,@Tdate,@statusID",
-                new { username = Usernmae, VName = VenueName, Fdate = FDate, Tdate = TDate, statusID = StatusID });
-
-            return Ok(bookings);
-        }
-     
 
         // POST api/<BookingsController>
         [HttpPost("CreateBooking")]
-        public async Task<ActionResult<List<CreateBookings>>> CreateBooking(CreateBookings booking)
+        public async Task<ActionResult<Bookings>> CreateBooking(CreateBooking booking)
         {
             using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
-            await con.ExecuteAsync("exec CreateBooking @userName,@venueName,@time,@Pax,@Note", booking);
-            return Ok(booking);
+
+            var venue = await con.QuerySingleOrDefaultAsync<Venues>(
+                "SELECT VenueID FROM Venues WHERE Name = @VenueName", new { VenueName = booking.VenueName });
+            if (venue == null)
+            {
+                return BadRequest("Venue does not exist");
+            }
+
+            var user = await con.QuerySingleOrDefaultAsync<Users>(
+                "SELECT UserID FROM Users WHERE username = @Username", new { Username = booking.Username });
+            if (user == null)
+            {
+                return BadRequest("User does not exist");
+            }
+
+            var existingBooking = await con.QuerySingleOrDefaultAsync<Bookings>(
+               "SELECT ID FROM Bookings WHERE UserID = @UserID AND VenueID = @VenueID AND cast(Time as date) = cast(@DateTime as date)",
+               new { UserID = user.UserID, VenueID = venue.VenueID, DateTime = booking.DateTime });
+            if (existingBooking != null)
+            {
+                return BadRequest("You already have a booking on this venue and date");
+            }
+
+            var table = await con.QuerySingleOrDefaultAsync<VenueItems>(
+                "SELECT top 1 TableID FROM VenueItems WHERE VenueID = @VenueID AND Pax >= @Pax AND TableID NOT IN (SELECT TableID FROM Bookings WHERE cast(Time as date) = cast(@DateTime as date)) ORDER BY Pax",
+                new { VenueID = venue.VenueID, Pax = booking.Pax, DateTime = booking.DateTime });
+            if (table == null)
+            {
+                return BadRequest("No Table available for this booking");
+            }
+
+           
+
+            var result = await con.ExecuteAsync(
+                "INSERT INTO Bookings (UserID, VenueID, Time, Pax, Note, TableID, Status) VALUES (@UserID, @VenueID, @DateTime, @Pax, @Note, @TableID, 2)",
+                new { UserID = user.UserID, VenueID = venue.VenueID, DateTime = booking.DateTime, Pax = booking.Pax, Note = booking.Note, TableID = table.TableID });
+            if (result == 0)
+            {
+                return BadRequest("Failed to create booking");
+            }
+
+            return Ok();
         }
+
 
         // PUT api/<BookingsController>/5
-        [HttpPut("UpdateBoooking")]
-        public async Task<ActionResult<List<UpdateBooking>>> UpdateBoooking(UpdateBooking update)
+        [HttpPut("UpdateBooking")]
+        public async Task<ActionResult<Bookings>> UpdateBooking(UpdateBooking booking)
         {
             using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
-            await con.ExecuteAsync("exec UpdateBooking @username,@BoID,@datetime,@Pax,@note,@TableID", update);
-            return Ok(update);
+
+            var venue = await con.QuerySingleOrDefaultAsync<Venues>(
+                "SELECT VenueID FROM Venues WHERE Name = @VenueName", new { VenueName = booking.VenueName });
+            if (venue == null)
+            {
+                return BadRequest("Venue does not exist");
+            }
+
+            var venueOwner = await con.QuerySingleOrDefaultAsync<VenueOwners>(
+                "SELECT UserID FROM VenueOwners WHERE VenueID = @VenueID AND UserID = (SELECT UserID FROM Users WHERE username = @username)",
+                new { VenueID = venue.VenueID, Username = booking.Username });
+            if (venueOwner == null)
+            {
+                return BadRequest("You are not an owner of this venue");
+            }
+
+            var existingBooking = await con.QuerySingleOrDefaultAsync<Bookings>(
+                "SELECT * FROM Bookings WHERE ID = @ID", new { ID = booking.ID });
+            if (existingBooking == null)
+            {
+                return BadRequest("Booking does not exist");
+            }
+
+            var tableAvailability = await con.QuerySingleOrDefaultAsync<int>(
+                "SELECT TableID FROM VenueItems vi WHERE vi.TableID = @TableID AND vi.Pax >= @Pax AND vi.TableID NOT IN (SELECT TableID FROM Bookings WHERE cast(Time as date) = cast(@datetime as date))",
+                new { TableID = existingBooking.TableID, Pax = booking.Pax, Datetime = booking.Datetime });
+            if (tableAvailability == 0)
+            {
+                return BadRequest("No tables available on the new date");
+            }
+
+            var result = await con.ExecuteAsync(
+                "UPDATE Bookings SET Time = @Datetime, Pax = @Pax, Note = @Note WHERE ID = @ID",
+                new { Datetime = booking.Datetime, Pax = booking.Pax, Note = booking.Note, ID = booking.ID });
+            if (result == 0)
+            {
+                return BadRequest("Failed to update booking");
+            }
+
+            return Ok();
         }
+
+
 
         // PUT api/<BookingsController>/
-        [HttpPut("UpdateBoookingStatus")]
-        public async Task<ActionResult<string>> UpdateBoookingStatus(string Uname,int bookingID, int statusID)
+        [HttpPut("UpdateBookingStatus/{id}")]
+        public async Task<ActionResult<Bookings>> UpdateBookingStatus(int id, UpdateBookingStatus updateBookingStatus)
         {
             using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
-            await con.ExecuteAsync("exec UpdateBookingStatus @username, @BoID,@Status", new { username = Uname, BoID = bookingID, Status= statusID });
-            return Ok("Booking has been updated"); 
+
+            var booking = await con.QuerySingleOrDefaultAsync<Bookings>(
+                "SELECT * FROM Bookings WHERE ID = @ID", new { ID = id });
+            if (booking == null)
+            {
+                return NotFound("Booking not found");
+            }
+
+            var venueOwner = await con.QuerySingleOrDefaultAsync<VenueOwners>(
+                "SELECT UserID FROM VenueOwners WHERE VenueID = @VenueID AND UserID = (SELECT UserID FROM Users WHERE username = @username)",
+                new { VenueID = booking.VenueID, Username = updateBookingStatus.Username });
+            if (venueOwner == null)
+            {
+                return BadRequest("You are not an owner of this venue");
+            }
+
+            var result = await con.ExecuteAsync(
+                "UPDATE Bookings SET status = @status WHERE ID = @ID",
+                new { status = updateBookingStatus.Status, ID = id });
+            if (result == 0)
+            {
+                return BadRequest("Failed to update booking status");
+            }
+
+            return Ok();
         }
 
+
         // DELETE api/<BookingsController>/5
-        [HttpDelete("DeleteBooking")]
-        public async Task<ActionResult<string>> DeleteBooking(string Uname,int ID)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteBooking(int id, string username)
         {
             using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
-            await con.ExecuteAsync("exec DeleteBooking @username,@BoID", new { username = Uname, BoID = ID });
-            return Ok("Booking has been deleted");
+
+            var booking = await con.QuerySingleOrDefaultAsync<Bookings>(
+                "SELECT * FROM Bookings WHERE ID = @ID", new { ID = id });
+            if (booking == null)
+            {
+                return NotFound("Booking not found");
+            }
+
+            var venue = await con.QuerySingleOrDefaultAsync<Venues>(
+                "SELECT * FROM Venues WHERE VenueID = @VenueID", new { VenueID = booking.VenueID });
+            if (venue == null)
+            {
+                return BadRequest("Venue not found");
+            }
+
+            var venueOwner = await con.QuerySingleOrDefaultAsync<VenueOwners>(
+                "SELECT * FROM VenueOwners WHERE VenueID = @VenueID AND UserID = (SELECT UserID FROM Users WHERE username = @username)",
+                new { VenueID = venue.VenueID, username = username });
+            if (venueOwner == null)
+            {
+                return BadRequest("You are not an owner of this venue");
+            }
+
+            var result = await con.ExecuteAsync(
+                "DELETE FROM Bookings WHERE ID = @ID", new { ID = id });
+            if (result == 0)
+            {
+                return BadRequest("Failed to delete booking");
+            }
+
+            return Ok();
         }
+
     }
 }

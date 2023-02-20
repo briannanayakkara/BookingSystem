@@ -10,17 +10,7 @@ declare @AdminLvl int = 0,
 	@pass nvarchar(50) = 'Test21234',
 	@ID int = 2
 
-exec [UpdateUser] 
-	@AdminLvl,
-	@firstname,
-	@lastname,
-	@username,
-	@email,
-	@phone,
-	@region,
-	@bday,
-	@pass,
-	@ID
+exec [UpdateUser] @AdminLvl,@firstname,@lastname,@username,@email,@phone,@region,@bday,@pass,@ID
 
 	select * from users
 	select * from UserLogin

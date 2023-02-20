@@ -12,7 +12,5 @@
         public DateTime Birthday { get; set; }
         public int AdminLevel { get; set; }
 
-
-
     }
 }
