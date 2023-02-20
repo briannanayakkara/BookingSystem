@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimpleBooking.Models;
 
 namespace SimpleBooking
 {
@@ -42,11 +43,28 @@ namespace SimpleBooking
         private async void CreateAccountbtn_Click(object sender, EventArgs e)
         {
 
-            var responce = await ApiHelper.CreateUserPost(Fname.Text,Sname.Text,userName.Text,email.Text,phone.Text,Region.Text,Bday.Text,pass.Text);
-             MessageBox.Show(ApiHelper.Pretty(responce));
-            /* this.Close();
-             Form1 form1 = new Form1();
-             form1.Show();*/
+            var user = new CreateUser
+            {
+                AdminLvl = 0,
+                Firstname = Fname.Text,
+                Lastname = Sname.Text,
+                Username = userName.Text,
+                Email = email.Text,
+                Phone = Convert.ToInt32(phone.Text),
+                Region = Region.Text,
+                Bday = Convert.ToDateTime(Bday.Text),
+                Password = pass.Text
+            };
+
+            var success = await ApiHelper.CreateUser(user);
+            if (success != null)
+            {
+                MessageBox.Show("User created successfully");
+            }
+            else
+            {
+                MessageBox.Show("Failed to create user");
+            }
         }
     }
 }

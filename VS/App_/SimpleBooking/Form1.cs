@@ -11,17 +11,22 @@ namespace SimpleBooking
 
         private async void Login_Click(object sender, EventArgs e)
         {
-            var responce = await ApiHelper.VerifyU(username.Text,password.Text);
-            if (responce == "Log in successfull")
+
+            bool result = await ApiHelper.VerifyUser(username.Text, password.Text);
+
+            if (result)
             {
-                Main main = new Main();
+                MessageBox.Show("Login Successful");
+                // navigate to the main page
+                Main mainPage = new Main();
+                mainPage.Show();
                 this.Hide();
-                main.Show();
             }
-            else 
+            else
             {
-                MessageBox.Show(responce);
+                MessageBox.Show("Login Failed. Please try again");
             }
+         
             
         }
 
