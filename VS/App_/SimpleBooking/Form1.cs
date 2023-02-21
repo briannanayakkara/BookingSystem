@@ -16,9 +16,8 @@ namespace SimpleBooking
 
             if (result)
             {
-                MessageBox.Show("Login Successful");
                 // navigate to the main page
-                Main mainPage = new Main();
+                Main mainPage = new Main(username.Text);
                 mainPage.Show();
                 this.Hide();
             }

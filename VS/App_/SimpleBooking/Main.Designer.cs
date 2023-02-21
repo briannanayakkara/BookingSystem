@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelName = new System.Windows.Forms.Label();
             this.EditUserbtn = new System.Windows.Forms.Button();
             this.Bookingsbtn = new System.Windows.Forms.Button();
             this.Venuebtn = new System.Windows.Forms.Button();
@@ -43,7 +43,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.labelName);
             this.panel1.Controls.Add(this.EditUserbtn);
             this.panel1.Controls.Add(this.Bookingsbtn);
             this.panel1.Controls.Add(this.Venuebtn);
@@ -52,14 +52,14 @@
             this.panel1.Size = new System.Drawing.Size(158, 451);
             this.panel1.TabIndex = 0;
             // 
-            // label1
+            // labelName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(59, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "NAME";
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(58, 21);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(41, 15);
+            this.labelName.TabIndex = 3;
+            this.labelName.Text = "NAME";
             // 
             // EditUserbtn
             // 
@@ -142,7 +142,7 @@
         #endregion
 
         private Panel panel1;
-        private Label label1;
+        private Label labelName;
         private Button EditUserbtn;
         private Button Bookingsbtn;
         private Button Venuebtn;

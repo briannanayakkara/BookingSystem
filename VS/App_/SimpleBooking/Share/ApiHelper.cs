@@ -32,14 +32,20 @@ namespace SimpleBooking.Share
             return false;
         }
 
-
-
-
-
-        public static string Pretty(string jsoneStr)
+        public static async Task<Users> GetUser(string username)
         {
-            JToken jToken = JToken.Parse(jsoneStr);
-            return jToken.ToString(Newtonsoft.Json.Formatting.Indented);
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(api + $"User/GetUser/{username}"))
+                {
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var content = await res.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<Users>(content);
+                    }
+                }
+            }
+            return null;
         }
 
         // POST

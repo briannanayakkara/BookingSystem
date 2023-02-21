@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleBooking.Share;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,26 @@ namespace SimpleBooking
 {
     public partial class Main : Form
     {
-        public Main()
+        private string _username;
+        private int _userID;
+        public Main(string username)
         {
             InitializeComponent();
+            _username = username;
+            UpdateUserData();
+        }
+        public async void UpdateUserData()
+        {
+            var user = await ApiHelper.GetUser(_username);
+            if (user != null)
+            {
+                _userID = user.UserID;
+                labelName.Text = user.ToString();
+            }
+            else
+            {
+                labelName.Text = "User not found.";
+            }
         }
 
         private void Main_Load(object sender, EventArgs e)

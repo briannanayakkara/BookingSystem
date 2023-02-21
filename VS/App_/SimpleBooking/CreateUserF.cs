@@ -57,7 +57,9 @@ namespace SimpleBooking
             };
 
             var success = await ApiHelper.CreateUser(user);
-            if (success != null)
+
+            
+            if (success.IsSuccessStatusCode)
             {
                 MessageBox.Show("User created successfully");
             }
