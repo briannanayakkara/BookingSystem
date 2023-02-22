@@ -28,11 +28,11 @@ namespace BookingAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("GetUser/{UserID}")]
-        public async Task<ActionResult<Users>> GetUser(int UserID)
+        [HttpGet("GetUser/{username}")]
+        public async Task<ActionResult<Users>> GetUser(string username)
         {
             using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
-            var result = await con.QueryFirstOrDefaultAsync<Users>("select * from Users where UserID = @ID", new { ID = UserID });
+            var result = await con.QueryFirstOrDefaultAsync<Users>("select * from Users where username = @username", new { username = username });
             if (result != null)
             {
                 return Ok(result);
@@ -56,7 +56,15 @@ namespace BookingAPI.Controllers
                 }
                 if (BCrypt.Net.BCrypt.Verify(password, user.Password))
                 {
-                    return Ok("Login successful.");
+                    var venueOwner = await connection.QueryFirstOrDefaultAsync<VenueOwners>("SELECT * FROM VenueOwners vo join Users u on u.UserID = vo.UserID WHERE u.Username = @UserID", new { UserID = user.UserName });
+                    if (venueOwner != null)
+                    {
+                        return Ok("Login successful. You are a venue owner.");
+                    }
+                    else
+                    {
+                        return Ok("Login successful. You are not a venue owner.");
+                    }
                 }
                 else
                 {
@@ -132,7 +140,7 @@ namespace BookingAPI.Controllers
         public async Task<ActionResult<List<string>>> DeleteUser(int UserID)
         {
             using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
-            var result = await con.QueryFirstOrDefaultAsync<string>("exec DeleteUser @ID", new { ID = UserID });
+            var result = await con.QueryFirstOrDefaultAsync<string>("delete from UserLogin where @ID; delete from Users where @ID", new { ID = UserID });
             if (result != null)
             {
                 return Ok(result);

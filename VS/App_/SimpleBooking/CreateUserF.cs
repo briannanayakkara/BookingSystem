@@ -14,9 +14,11 @@ namespace SimpleBooking
 {
     public partial class CreateUserF : Form
     {
-        public CreateUserF()
+        bool _admin = false;
+        public CreateUserF(bool check)
         {
             InitializeComponent();
+            _admin = check;
         }
 
         private void CreateUserF_Load(object sender, EventArgs e)
@@ -42,10 +44,12 @@ namespace SimpleBooking
 
         private async void CreateAccountbtn_Click(object sender, EventArgs e)
         {
+            int i = 0;
+            if (_admin) { i = 1; };
 
             var user = new CreateUser
             {
-                AdminLvl = 0,
+                AdminLvl = i,
                 Firstname = Fname.Text,
                 Lastname = Sname.Text,
                 Username = userName.Text,
@@ -62,6 +66,9 @@ namespace SimpleBooking
             if (success.IsSuccessStatusCode)
             {
                 MessageBox.Show("User created successfully");
+                this.Close();
+                Form1 loginForm = new Form1();
+                loginForm.Show();
             }
             else
             {

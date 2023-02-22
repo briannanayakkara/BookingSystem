@@ -21,6 +21,47 @@ namespace BookingAPI.Controllers
             _configuration = configuration;
         }
 
+        [HttpGet("GetBookingsByUsername")]
+        public async Task<ActionResult<IEnumerable<BookingsByDate>>> GetBookingsByUsername(string username)
+        {
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+
+            var user = await con.QuerySingleOrDefaultAsync<Users>(
+                "SELECT UserID FROM Users WHERE username = @Username", new { Username = username });
+            if (user == null)
+            {
+                return BadRequest("User does not exist");
+            }
+
+            var bookings = await con.QueryAsync<BookingsByDate>(@"
+        SELECT 
+            b.ID, 
+            u.Firstname + ' ' + u.Lastname AS fullname, 
+            u.Email, 
+            u.Phone, 
+            b.Pax AS pax, 
+            vi.Pax AS tableSize, 
+            vi.TableNr, 
+            b.Note,
+            b.Time, 
+            v.name AS Venue, 
+            uvi.Firstname + ' ' + uvi.Lastname AS venueOwner, 
+            s.Status 
+        FROM 
+            bookings b 
+            JOIN users u ON u.UserID = b.UserID 
+            JOIN Venues v ON b.VenueID = v.VenueID
+            JOIN VenueItems vi ON b.TableID = vi.TableID
+            JOIN VenueOwners vo ON v.VenueID = vo.VenueID
+            JOIN Users uvi ON vo.UserID = uvi.UserID
+            JOIN status s ON b.status = s.ID
+        WHERE 
+            u.UserID = @UserID",
+                new { UserID = user.UserID });
+
+            return bookings.ToList();
+        }
+
         [HttpGet("GetBookingsByDate")]
         public async Task<ActionResult<IEnumerable<BookingsByDate>>> GetBookingsByDate(string username, string venueName, DateTime date)
         {

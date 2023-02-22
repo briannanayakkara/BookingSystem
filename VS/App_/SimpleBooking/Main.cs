@@ -13,14 +13,19 @@ namespace SimpleBooking
 {
     public partial class Main : Form
     {
-        private string _username;
-        private int _userID;
-        public Main(string username)
+        public string _username;
+        public int _userID;
+        public int _i;
+        public Main(string username, int i)
         {
             InitializeComponent();
             _username = username;
             UpdateUserData();
+            _i = i;
+            enablebtns();
         }
+
+
         public async void UpdateUserData()
         {
             var user = await ApiHelper.GetUser(_username);
@@ -37,7 +42,7 @@ namespace SimpleBooking
 
         private void Main_Load(object sender, EventArgs e)
         {
-            venues1.Hide();
+            createBooking1.Hide();
             profile1.Hide();
             bookings1.Hide();
         }
@@ -48,31 +53,79 @@ namespace SimpleBooking
             profile1.Hide();
             bookings1.Hide();
 
+
             //show
-            venues1.Show();
-            venues1.BringToFront();
+            createBooking1.Show();
+            createBooking1.BringToFront();
+
+            createBooking1._username = _username;
+
         }
 
         private void Bookingsbtn_Click(object sender, EventArgs e)
         {
             // hide
             profile1.Hide();
-            venues1.Hide();
+            createBooking1.Hide();
 
             //show
             bookings1.Show();
             bookings1.BringToFront();
+
+            bookings1.Username = _username;
         }
 
         private void EditUserbtn_Click(object sender, EventArgs e)
         {
             // hide
-            venues1.Hide();
+            createBooking1.Hide();
             bookings1.Hide();
 
             //show
             profile1.Show();
             profile1.BringToFront();
+
+            profile1.FillUserData(_username);
+            profile1._userID = _userID;
+
+        }
+
+        private void createBooking1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Logout_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Form1 loginForm = new Form1();
+            loginForm.Show();
+        }
+
+
+        // ADMIN MANAGMENT
+        public void enablebtns()
+        {
+            if (_i != 1)
+            {
+                label1.Visible = false;
+                comboBox1.Visible = false;
+                ManageBookingsbtn.Visible = false;
+                ManageVenueItemsbtn.Visible = false;
+                ManageVenuebtn.Visible = false;
+
+            }
+        }
+        public async void FillUserData()
+        {
+            var venues = await ApiHelper.GetAllVenues();
+            if (venues != null)
+            {
+                foreach (var venue in venues)
+                {
+                    comboBox1.Items.Add(venue.Name);
+                }
+            }
         }
     }
 }

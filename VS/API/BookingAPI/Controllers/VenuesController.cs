@@ -25,7 +25,7 @@ namespace BookingAPI.Controllers
         {
             using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
             var venues = await con.QueryAsync<Venues>("SELECT * FROM venues");
-            return Ok(new { venues });
+            return Ok(venues);
         }
 
         // GET api/<VeluesController>/5

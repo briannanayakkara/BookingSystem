@@ -32,6 +32,7 @@
             this.SignUp = new System.Windows.Forms.Button();
             this.username = new System.Windows.Forms.TextBox();
             this.password = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Login
@@ -69,11 +70,22 @@
             this.password.Size = new System.Drawing.Size(100, 23);
             this.password.TabIndex = 3;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(195, 87);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(96, 19);
+            this.checkBox1.TabIndex = 4;
+            this.checkBox1.Text = "Venue Owner";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 147);
+            this.ClientSize = new System.Drawing.Size(294, 181);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.password);
             this.Controls.Add(this.username);
             this.Controls.Add(this.SignUp);
@@ -91,5 +103,6 @@
         private Button SignUp;
         private TextBox username;
         private TextBox password;
+        private CheckBox checkBox1;
     }
 }

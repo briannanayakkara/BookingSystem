@@ -14,8 +14,8 @@ namespace SimpleBooking.Share
     {
         private static readonly string api = "https://localhost:7022/api/";
 
-        // GET
-        public static async Task<bool> VerifyUser(string username, string password)
+        // GET User
+        public static async Task<int> VerifyUser(string username, string password)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -23,13 +23,55 @@ namespace SimpleBooking.Share
                 {
                     if (res.IsSuccessStatusCode)
                     {
-                        // Log the user in
-                        
-                        return true;
+                        string result = await res.Content.ReadAsStringAsync();
+                        if (result == "Login successful. You are a venue owner.")
+                        {
+                            return 1;
+                        }
+                        else if (result == "Login successful. You are not a venue owner.")
+                        {
+                            return 0;
+                        }
                     }
                 }
             }
-            return false;
+            return 2;
+        }
+
+        // get venue
+
+        public static async Task<List<Venues>> GetAllVenues()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(api + "Venues/GetAllVenues"))
+                {
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var content = await res.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<List<Venues>>(content);
+                    }
+                }
+            }
+            return null;
+        }
+
+        // get all bookings
+
+        public static async Task<List<BookingsData>> GetBookingsByUsername(string username)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(api + $"Bookings/GetBookingsByUsername?username={username}"))
+                {
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var content = await res.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<List<BookingsData>>(content);
+                    }
+                }
+            }
+            return null;
         }
 
         public static async Task<Users> GetUser(string username)
@@ -48,7 +90,7 @@ namespace SimpleBooking.Share
             return null;
         }
 
-        // POST
+        // POST user
 
 
         public static async Task<HttpResponseMessage> CreateUser(CreateUser user)
@@ -57,6 +99,28 @@ namespace SimpleBooking.Share
             {
                 var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
                 return await client.PostAsync(api + "User/CreateUser", content);
+            }
+        }
+
+        // booking
+
+        public static async Task<HttpResponseMessage> CreateBooking(CreateBookings booking)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(booking), Encoding.UTF8, "application/json");
+                return await client.PostAsync(api + "Bookings/CreateBooking", content);
+            }
+        }
+
+        // Put
+
+        public static async Task<HttpResponseMessage> EditUser(int UserID, UserData userData)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(userData), Encoding.UTF8, "application/json");
+                return await client.PutAsync(api + "$User/EditUser /" + UserID, content);
             }
         }
 

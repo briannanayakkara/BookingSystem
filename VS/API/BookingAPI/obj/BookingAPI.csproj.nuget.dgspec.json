@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dimal\\Desktop\\Final Project\\BookingSystem\\VS\\API\\BookingAPI\\BookingAPI.csproj": {}
+    "C:\\Users\\dimal\\Desktop\\Final project new\\BookingSystem\\VS\\API\\BookingAPI\\BookingAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dimal\\Desktop\\Final Project\\BookingSystem\\VS\\API\\BookingAPI\\BookingAPI.csproj": {
+    "C:\\Users\\dimal\\Desktop\\Final project new\\BookingSystem\\VS\\API\\BookingAPI\\BookingAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dimal\\Desktop\\Final Project\\BookingSystem\\VS\\API\\BookingAPI\\BookingAPI.csproj",
+        "projectUniqueName": "C:\\Users\\dimal\\Desktop\\Final project new\\BookingSystem\\VS\\API\\BookingAPI\\BookingAPI.csproj",
         "projectName": "BookingAPI",
-        "projectPath": "C:\\Users\\dimal\\Desktop\\Final Project\\BookingSystem\\VS\\API\\BookingAPI\\BookingAPI.csproj",
+        "projectPath": "C:\\Users\\dimal\\Desktop\\Final project new\\BookingSystem\\VS\\API\\BookingAPI\\BookingAPI.csproj",
         "packagesPath": "C:\\Users\\dimal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dimal\\Desktop\\Final Project\\BookingSystem\\VS\\API\\BookingAPI\\obj\\",
+        "outputPath": "C:\\Users\\dimal\\Desktop\\Final project new\\BookingSystem\\VS\\API\\BookingAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
