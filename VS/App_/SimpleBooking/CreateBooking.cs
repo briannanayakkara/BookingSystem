@@ -22,6 +22,8 @@ namespace SimpleBooking
         {
             InitializeComponent();
             FillUserData();
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+
 
         }
 

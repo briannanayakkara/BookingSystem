@@ -56,6 +56,23 @@ namespace SimpleBooking.Share
             return null;
         }
 
+        // get all the venuesFor the admin 
+        public static async Task<List<Venues>> GetAllVenuesForOwner(string username)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(api + "Venues/GetVenuesByUsername/"+username))
+                {
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var content = await res.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<List<Venues>>(content);
+                    }
+                }
+            }
+            return null;
+        }
+
         // get all bookings
 
         public static async Task<List<BookingsData>> GetBookingsByUsername(string username)
@@ -99,6 +116,17 @@ namespace SimpleBooking.Share
             {
                 var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
                 return await client.PostAsync(api + "User/CreateUser", content);
+            }
+        }
+
+        // Post Venue
+
+        public static async Task<HttpResponseMessage> CreateVenue(CreateVenues venue)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(venue), Encoding.UTF8, "application/json");
+                return await client.PostAsync(api + "Venues/CreateVenue", content);
             }
         }
 

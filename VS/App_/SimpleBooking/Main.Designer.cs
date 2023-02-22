@@ -29,18 +29,21 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.Logout = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
             this.EditUserbtn = new System.Windows.Forms.Button();
+            this.CreateVenue = new System.Windows.Forms.Button();
+            this.ManageVenuebtn = new System.Windows.Forms.Button();
+            this.ManageVenueItemsbtn = new System.Windows.Forms.Button();
             this.ManageBookingsbtn = new System.Windows.Forms.Button();
+            this.YourBookings = new System.Windows.Forms.Button();
             this.Venuebtn = new System.Windows.Forms.Button();
             this.bookings1 = new SimpleBooking.Bookings();
             this.profile1 = new SimpleBooking.Profile();
             this.createBooking1 = new SimpleBooking.CreateBooking();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.ManageVenueItemsbtn = new System.Windows.Forms.Button();
-            this.ManageVenuebtn = new System.Windows.Forms.Button();
+            this.createVenue1 = new SimpleBooking.CreateVenue();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,14 +54,25 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.labelName);
             this.panel1.Controls.Add(this.EditUserbtn);
+            this.panel1.Controls.Add(this.CreateVenue);
             this.panel1.Controls.Add(this.ManageVenuebtn);
             this.panel1.Controls.Add(this.ManageVenueItemsbtn);
             this.panel1.Controls.Add(this.ManageBookingsbtn);
+            this.panel1.Controls.Add(this.YourBookings);
             this.panel1.Controls.Add(this.Venuebtn);
             this.panel1.Location = new System.Drawing.Point(0, 1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(158, 493);
             this.panel1.TabIndex = 0;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(20, 155);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 23);
+            this.comboBox1.TabIndex = 5;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // Logout
             // 
@@ -70,10 +84,19 @@
             this.Logout.UseVisualStyleBackColor = true;
             this.Logout.Click += new System.EventHandler(this.Logout_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(34, 127);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(84, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "SELECT VENUE";
+            // 
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(43, 20);
+            this.labelName.Location = new System.Drawing.Point(12, 20);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(41, 15);
             this.labelName.TabIndex = 3;
@@ -89,16 +112,55 @@
             this.EditUserbtn.UseVisualStyleBackColor = true;
             this.EditUserbtn.Click += new System.EventHandler(this.EditUserbtn_Click);
             // 
+            // CreateVenue
+            // 
+            this.CreateVenue.Location = new System.Drawing.Point(25, 346);
+            this.CreateVenue.Name = "CreateVenue";
+            this.CreateVenue.Size = new System.Drawing.Size(106, 48);
+            this.CreateVenue.TabIndex = 1;
+            this.CreateVenue.Text = "Create Venue";
+            this.CreateVenue.UseVisualStyleBackColor = true;
+            this.CreateVenue.Click += new System.EventHandler(this.CreateVenue_Click);
+            // 
+            // ManageVenuebtn
+            // 
+            this.ManageVenuebtn.Enabled = false;
+            this.ManageVenuebtn.Location = new System.Drawing.Point(25, 292);
+            this.ManageVenuebtn.Name = "ManageVenuebtn";
+            this.ManageVenuebtn.Size = new System.Drawing.Size(106, 48);
+            this.ManageVenuebtn.TabIndex = 1;
+            this.ManageVenuebtn.Text = "Manage Venue";
+            this.ManageVenuebtn.UseVisualStyleBackColor = true;
+            // 
+            // ManageVenueItemsbtn
+            // 
+            this.ManageVenueItemsbtn.Enabled = false;
+            this.ManageVenueItemsbtn.Location = new System.Drawing.Point(25, 238);
+            this.ManageVenueItemsbtn.Name = "ManageVenueItemsbtn";
+            this.ManageVenueItemsbtn.Size = new System.Drawing.Size(106, 48);
+            this.ManageVenueItemsbtn.TabIndex = 1;
+            this.ManageVenueItemsbtn.Text = "Manage Venue Items";
+            this.ManageVenueItemsbtn.UseVisualStyleBackColor = true;
+            // 
             // ManageBookingsbtn
             // 
             this.ManageBookingsbtn.Enabled = false;
-            this.ManageBookingsbtn.Location = new System.Drawing.Point(17, 149);
+            this.ManageBookingsbtn.Location = new System.Drawing.Point(25, 184);
             this.ManageBookingsbtn.Name = "ManageBookingsbtn";
             this.ManageBookingsbtn.Size = new System.Drawing.Size(106, 48);
             this.ManageBookingsbtn.TabIndex = 1;
             this.ManageBookingsbtn.Text = "Manage bookings";
             this.ManageBookingsbtn.UseVisualStyleBackColor = true;
-            this.ManageBookingsbtn.Click += new System.EventHandler(this.Bookingsbtn_Click);
+            // 
+            // YourBookings
+            // 
+            this.YourBookings.Location = new System.Drawing.Point(25, 84);
+            this.YourBookings.Name = "YourBookings";
+            this.YourBookings.Size = new System.Drawing.Size(97, 23);
+            this.YourBookings.TabIndex = 0;
+            this.YourBookings.Text = "YourBookings";
+            this.YourBookings.UseVisualStyleBackColor = true;
+            this.YourBookings.Click += new System.EventHandler(this.Bookingsbtn_Click);
             // 
             // Venuebtn
             // 
@@ -133,50 +195,19 @@
             this.createBooking1.TabIndex = 3;
             this.createBooking1.Load += new System.EventHandler(this.createBooking1_Load);
             // 
-            // comboBox1
+            // createVenue1
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 120);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 23);
-            this.comboBox1.TabIndex = 5;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 92);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "SELECT VENUE";
-            // 
-            // ManageVenueItemsbtn
-            // 
-            this.ManageVenueItemsbtn.Enabled = false;
-            this.ManageVenueItemsbtn.Location = new System.Drawing.Point(17, 203);
-            this.ManageVenueItemsbtn.Name = "ManageVenueItemsbtn";
-            this.ManageVenueItemsbtn.Size = new System.Drawing.Size(106, 48);
-            this.ManageVenueItemsbtn.TabIndex = 1;
-            this.ManageVenueItemsbtn.Text = "Manage Venue Items";
-            this.ManageVenueItemsbtn.UseVisualStyleBackColor = true;
-            this.ManageVenueItemsbtn.Click += new System.EventHandler(this.Bookingsbtn_Click);
-            // 
-            // ManageVenuebtn
-            // 
-            this.ManageVenuebtn.Enabled = false;
-            this.ManageVenuebtn.Location = new System.Drawing.Point(17, 257);
-            this.ManageVenuebtn.Name = "ManageVenuebtn";
-            this.ManageVenuebtn.Size = new System.Drawing.Size(106, 48);
-            this.ManageVenuebtn.TabIndex = 1;
-            this.ManageVenuebtn.Text = "Manage Venue";
-            this.ManageVenuebtn.UseVisualStyleBackColor = true;
-            this.ManageVenuebtn.Click += new System.EventHandler(this.Bookingsbtn_Click);
+            this.createVenue1.Location = new System.Drawing.Point(159, 1);
+            this.createVenue1.Name = "createVenue1";
+            this.createVenue1.Size = new System.Drawing.Size(914, 493);
+            this.createVenue1.TabIndex = 4;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1070, 494);
+            this.Controls.Add(this.createVenue1);
             this.Controls.Add(this.createBooking1);
             this.Controls.Add(this.bookings1);
             this.Controls.Add(this.profile1);
@@ -205,5 +236,8 @@
         private ComboBox comboBox1;
         private Button ManageVenuebtn;
         private Button ManageVenueItemsbtn;
+        private Button CreateVenue;
+        private Button YourBookings;
+        private CreateVenue createVenue1;
     }
 }

@@ -16,6 +16,7 @@ namespace SimpleBooking
         public string _username;
         public int _userID;
         public int _i;
+        public string Vname;
         public Main(string username, int i)
         {
             InitializeComponent();
@@ -23,6 +24,7 @@ namespace SimpleBooking
             UpdateUserData();
             _i = i;
             enablebtns();
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
 
@@ -45,12 +47,14 @@ namespace SimpleBooking
             createBooking1.Hide();
             profile1.Hide();
             bookings1.Hide();
+            createVenue1.Hide();
         }
 
         private void Venuebtn_Click(object sender, EventArgs e)
         {
             // hide
             profile1.Hide();
+            createVenue1.Hide();
             bookings1.Hide();
 
 
@@ -66,6 +70,7 @@ namespace SimpleBooking
         {
             // hide
             profile1.Hide();
+            createVenue1.Hide();
             createBooking1.Hide();
 
             //show
@@ -79,6 +84,7 @@ namespace SimpleBooking
         {
             // hide
             createBooking1.Hide();
+            createVenue1.Hide();
             bookings1.Hide();
 
             //show
@@ -106,19 +112,32 @@ namespace SimpleBooking
         // ADMIN MANAGMENT
         public void enablebtns()
         {
-            if (_i != 1)
+            if (_i == 1)
             {
+
+                label1.Visible = true;
+                comboBox1.Visible = true;
+                ManageBookingsbtn.Visible = true;
+                ManageVenueItemsbtn.Visible = true;
+                ManageVenuebtn.Visible = true;
+                CreateVenue.Visible = true;
+                FillUserData();
+            }
+            else
+            {
+                
                 label1.Visible = false;
                 comboBox1.Visible = false;
                 ManageBookingsbtn.Visible = false;
                 ManageVenueItemsbtn.Visible = false;
                 ManageVenuebtn.Visible = false;
-
+                CreateVenue.Visible = false;
             }
+
         }
         public async void FillUserData()
         {
-            var venues = await ApiHelper.GetAllVenues();
+            var venues = await ApiHelper.GetAllVenuesForOwner(_username);
             if (venues != null)
             {
                 foreach (var venue in venues)
@@ -126,6 +145,35 @@ namespace SimpleBooking
                     comboBox1.Items.Add(venue.Name);
                 }
             }
+        }
+
+        private void CreateVenue_Click(object sender, EventArgs e)
+        {
+
+            // hide
+            createBooking1.Hide();
+            bookings1.Hide();
+
+
+            //show
+            createVenue1.Show();
+            createVenue1.BringToFront();
+
+            createVenue1._username = _username;
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.Text != " ")
+            {
+                Vname = comboBox1.Text;
+                ManageBookingsbtn.Enabled = true;
+                ManageVenuebtn.Enabled = true;
+                ManageVenueItemsbtn.Enabled = true;
+            }
+            
+            
         }
     }
 }
