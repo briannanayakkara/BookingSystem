@@ -91,6 +91,41 @@ namespace SimpleBooking.Share
             return null;
         }
 
+
+        public static async Task<List<BookingsData>> GetBookingByID(string id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(api + $"Bookings/GetBookingsByID?ID={id}"))
+                {
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var content = await res.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<List<BookingsData>>(content);
+                    }
+                }
+            }
+            return null;
+        }
+
+       
+
+        public static async Task<List<BookingsData>> GetBookingsByDate(string username,string venuename, string date)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(api + $"Bookings/GetBookingsByDate?username={username}&venueName={venuename}&date={date}"))
+                {
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var content = await res.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<List<BookingsData>>(content);
+                    }
+                }
+            }
+            return null;
+        }
+
         public static async Task<Users> GetUser(string username)
         {
             using (HttpClient client = new HttpClient())
@@ -105,6 +140,11 @@ namespace SimpleBooking.Share
                 }
             }
             return null;
+        }
+
+        internal static Task GetBookingsByID(string? bookingId)
+        {
+            throw new NotImplementedException();
         }
 
         // POST user
@@ -149,6 +189,40 @@ namespace SimpleBooking.Share
             {
                 var content = new StringContent(JsonConvert.SerializeObject(userData), Encoding.UTF8, "application/json");
                 return await client.PutAsync(api + "$User/EditUser /" + UserID, content);
+            }
+        }
+
+        // booking
+        public static async Task<string> UpdateBooking(UpdateBooking booking)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var bookingJson = JsonConvert.SerializeObject(booking);
+                var content = new StringContent(bookingJson, Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync(api + "Bookings/UpdateBooking", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    return await response.Content.ReadAsStringAsync();
+
+                }
+
+            }
+        }
+
+        public static async Task<HttpResponseMessage> UpdateBookingStatus(int bookingId, string statusId, string username)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var bookingStatus = new UpdateStatus { status = statusId, username = username };
+
+                var content = new StringContent(JsonConvert.SerializeObject(bookingStatus), Encoding.UTF8, "application/json");
+
+                return await client.PutAsync(api + $"Bookings/UpdateBookingStatus/{bookingId}", content);
             }
         }
 

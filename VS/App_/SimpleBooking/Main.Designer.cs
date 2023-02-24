@@ -44,6 +44,7 @@
             this.profile1 = new SimpleBooking.Profile();
             this.createBooking1 = new SimpleBooking.CreateBooking();
             this.createVenue1 = new SimpleBooking.CreateVenue();
+            this.DateforBooking2 = new SimpleBooking.UpdateBookings();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -151,6 +152,7 @@
             this.ManageBookingsbtn.TabIndex = 1;
             this.ManageBookingsbtn.Text = "Manage bookings";
             this.ManageBookingsbtn.UseVisualStyleBackColor = true;
+            this.ManageBookingsbtn.Click += new System.EventHandler(this.ManageBookingsbtn_Click);
             // 
             // YourBookings
             // 
@@ -202,11 +204,19 @@
             this.createVenue1.Size = new System.Drawing.Size(914, 493);
             this.createVenue1.TabIndex = 4;
             // 
+            // DateforBooking2
+            // 
+            this.DateforBooking2.Location = new System.Drawing.Point(159, 1);
+            this.DateforBooking2.Name = "DateforBooking2";
+            this.DateforBooking2.Size = new System.Drawing.Size(914, 493);
+            this.DateforBooking2.TabIndex = 5;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1070, 494);
+            this.Controls.Add(this.DateforBooking2);
             this.Controls.Add(this.createVenue1);
             this.Controls.Add(this.createBooking1);
             this.Controls.Add(this.bookings1);
@@ -239,5 +249,6 @@
         private Button CreateVenue;
         private Button YourBookings;
         private CreateVenue createVenue1;
+        private UpdateBookings DateforBooking2;
     }
 }

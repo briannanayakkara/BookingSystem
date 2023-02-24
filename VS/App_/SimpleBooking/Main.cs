@@ -48,6 +48,7 @@ namespace SimpleBooking
             profile1.Hide();
             bookings1.Hide();
             createVenue1.Hide();
+            DateforBooking2.Hide();
         }
 
         private void Venuebtn_Click(object sender, EventArgs e)
@@ -56,6 +57,8 @@ namespace SimpleBooking
             profile1.Hide();
             createVenue1.Hide();
             bookings1.Hide();
+            DateforBooking2.Hide();
+
 
 
             //show
@@ -72,6 +75,8 @@ namespace SimpleBooking
             profile1.Hide();
             createVenue1.Hide();
             createBooking1.Hide();
+            DateforBooking2.Hide();
+
 
             //show
             bookings1.Show();
@@ -86,6 +91,8 @@ namespace SimpleBooking
             createBooking1.Hide();
             createVenue1.Hide();
             bookings1.Hide();
+            DateforBooking2.Hide();
+
 
             //show
             profile1.Show();
@@ -153,6 +160,10 @@ namespace SimpleBooking
             // hide
             createBooking1.Hide();
             bookings1.Hide();
+            DateforBooking2.Hide();
+            profile1.Hide();
+
+
 
 
             //show
@@ -165,15 +176,42 @@ namespace SimpleBooking
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.Text != " ")
-            {
-                Vname = comboBox1.Text;
-                ManageBookingsbtn.Enabled = true;
-                ManageVenuebtn.Enabled = true;
-                ManageVenueItemsbtn.Enabled = true;
-            }
+
+            createBooking1.Hide();
+            profile1.Hide();
+            bookings1.Hide();
+            createVenue1.Hide();
+            DateforBooking2.Hide();
+
+            Vname = comboBox1.Text;
+            ManageBookingsbtn.Enabled = true;
+            ManageVenuebtn.Enabled = true;
+            ManageVenueItemsbtn.Enabled = true;
+            Vname = comboBox1.Text;
+
+
+
+        }
+        private void ManageBookingsbtn_Click(object sender, EventArgs e)
+        {
+            // hide
+            createBooking1.Hide();
+            bookings1.Hide();
+            profile1.Hide();
+            createVenue1.Hide();
+
+            // reset fields
+            DateforBooking2.ResetFields();
+
+
+            //show
+            DateforBooking2.Show();
+            DateforBooking2.BringToFront();
+            DateforBooking2._username = _username;
+            DateforBooking2._venuename = Vname;
             
-            
+                       
+
         }
     }
 }

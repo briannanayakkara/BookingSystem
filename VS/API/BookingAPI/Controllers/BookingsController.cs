@@ -21,6 +21,47 @@ namespace BookingAPI.Controllers
             _configuration = configuration;
         }
 
+        [HttpGet("GetBookingsByID")]
+        public async Task<ActionResult<IEnumerable<BookingsByDate>>> GetBookingsByID(string ID )
+        {
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+
+            var Booking = await con.QuerySingleOrDefaultAsync<Users>(
+                "SELECT * FROM bookings WHERE ID = @BID", new { BID = ID });
+            if (Booking == null)
+            {
+                return BadRequest("User does not exist");
+            }
+
+            var bookings = await con.QueryAsync<BookingsByDate>(@"
+        SELECT 
+            b.ID, 
+            u.Firstname + ' ' + u.Lastname AS fullname, 
+            u.Email, 
+            u.Phone, 
+            b.Pax AS pax, 
+            vi.Pax AS tableSize, 
+            vi.TableNr, 
+            b.Note,
+            b.Time, 
+            v.name AS Venue, 
+            uvi.Firstname + ' ' + uvi.Lastname AS venueOwner, 
+            s.Status 
+        FROM 
+            bookings b 
+            JOIN users u ON u.UserID = b.UserID 
+            JOIN Venues v ON b.VenueID = v.VenueID
+            JOIN VenueItems vi ON b.TableID = vi.TableID
+            JOIN VenueOwners vo ON v.VenueID = vo.VenueID
+            JOIN Users uvi ON vo.UserID = uvi.UserID
+            JOIN status s ON b.status = s.ID
+        WHERE 
+            b.ID = @BID",
+                new { BID = ID });
+
+            return bookings.ToList();
+        }
+
         [HttpGet("GetBookingsByUsername")]
         public async Task<ActionResult<IEnumerable<BookingsByDate>>> GetBookingsByUsername(string username)
         {
@@ -177,12 +218,11 @@ namespace BookingAPI.Controllers
                 return BadRequest("Venue does not exist");
             }
 
-            var venueOwner = await con.QuerySingleOrDefaultAsync<VenueOwners>(
-                "SELECT UserID FROM VenueOwners WHERE VenueID = @VenueID AND UserID = (SELECT UserID FROM Users WHERE username = @username)",
-                new { VenueID = venue.VenueID, Username = booking.Username });
-            if (venueOwner == null)
+            var user = await con.QuerySingleOrDefaultAsync<Users>(
+                "SELECT UserID FROM Users WHERE username = @Username", new { Username = booking.Username });
+            if (user == null)
             {
-                return BadRequest("You are not an owner of this venue");
+                return BadRequest("User does not exist");
             }
 
             var existingBooking = await con.QuerySingleOrDefaultAsync<Bookings>(
@@ -192,24 +232,25 @@ namespace BookingAPI.Controllers
                 return BadRequest("Booking does not exist");
             }
 
-            var tableAvailability = await con.QuerySingleOrDefaultAsync<int>(
-                "SELECT TableID FROM VenueItems vi WHERE vi.TableID = @TableID AND vi.Pax >= @Pax AND vi.TableID NOT IN (SELECT TableID FROM Bookings WHERE cast(Time as date) = cast(@datetime as date))",
-                new { TableID = existingBooking.TableID, Pax = booking.Pax, Datetime = booking.Datetime });
-            if (tableAvailability == 0)
+            var table = await con.QuerySingleOrDefaultAsync<VenueItems>(
+                "SELECT top 1 TableID FROM VenueItems WHERE VenueID = @VenueID AND Pax >= @Pax AND TableID NOT IN (SELECT TableID FROM Bookings WHERE cast(Time as date) = cast(@DateTime as date)) ORDER BY Pax",
+                new { VenueID = venue.VenueID, Pax = booking.Pax, DateTime = booking.Datetime });
+            if (table == null)
             {
-                return BadRequest("No tables available on the new date");
+                return BadRequest("No table available for this booking");
             }
 
             var result = await con.ExecuteAsync(
-                "UPDATE Bookings SET Time = @Datetime, Pax = @Pax, Note = @Note WHERE ID = @ID",
-                new { Datetime = booking.Datetime, Pax = booking.Pax, Note = booking.Note, ID = booking.ID });
+                "UPDATE Bookings SET Time = @Datetime, Pax = @Pax, Note = @Note, TableID = @TableID WHERE ID = @ID",
+                new { Datetime = booking.Datetime, Pax = booking.Pax, Note = booking.Note, TableID = table.TableID, ID = booking.ID });
             if (result == 0)
             {
                 return BadRequest("Failed to update booking");
             }
 
-            return Ok();
+            return Ok("Booking successfully updated");
         }
+
 
 
 
