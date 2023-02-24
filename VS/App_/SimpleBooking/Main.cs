@@ -49,6 +49,8 @@ namespace SimpleBooking
             bookings1.Hide();
             createVenue1.Hide();
             DateforBooking2.Hide();
+            manageVenue1.Hide();
+
         }
 
         private void Venuebtn_Click(object sender, EventArgs e)
@@ -58,6 +60,7 @@ namespace SimpleBooking
             createVenue1.Hide();
             bookings1.Hide();
             DateforBooking2.Hide();
+            manageVenue1.Hide();
 
 
 
@@ -74,6 +77,7 @@ namespace SimpleBooking
             // hide
             profile1.Hide();
             createVenue1.Hide();
+            manageVenue1.Hide();
             createBooking1.Hide();
             DateforBooking2.Hide();
 
@@ -90,6 +94,7 @@ namespace SimpleBooking
             // hide
             createBooking1.Hide();
             createVenue1.Hide();
+            manageVenue1.Hide();
             bookings1.Hide();
             DateforBooking2.Hide();
 
@@ -144,6 +149,7 @@ namespace SimpleBooking
         }
         public async void FillUserData()
         {
+            comboBox1.Items.Clear();
             var venues = await ApiHelper.GetAllVenuesForOwner(_username);
             if (venues != null)
             {
@@ -160,11 +166,9 @@ namespace SimpleBooking
             // hide
             createBooking1.Hide();
             bookings1.Hide();
+            manageVenue1.Hide();
             DateforBooking2.Hide();
             profile1.Hide();
-
-
-
 
             //show
             createVenue1.Show();
@@ -180,8 +184,11 @@ namespace SimpleBooking
             createBooking1.Hide();
             profile1.Hide();
             bookings1.Hide();
+            manageVenue1.Hide();
             createVenue1.Hide();
             DateforBooking2.Hide();
+
+
 
             Vname = comboBox1.Text;
             ManageBookingsbtn.Enabled = true;
@@ -198,7 +205,9 @@ namespace SimpleBooking
             createBooking1.Hide();
             bookings1.Hide();
             profile1.Hide();
+            manageVenue1.Hide();
             createVenue1.Hide();
+
 
             // reset fields
             DateforBooking2.ResetFields();
@@ -212,6 +221,45 @@ namespace SimpleBooking
             
                        
 
+        }
+
+        private void ManageVenueItemsbtn_Click(object sender, EventArgs e)
+        {
+
+            // hide
+            createBooking1.Hide();
+            bookings1.Hide();
+            profile1.Hide();
+            createVenue1.Hide();
+            DateforBooking2.Hide();
+
+            // SHow
+            manageVenue1.Show();
+            manageVenue1.BringToFront();
+            manageVenue1._username = _username;
+            manageVenue1._venuename = Vname;
+        }
+
+        private void ManageVenuebtn_Click(object sender, EventArgs e)
+        {
+            // hide
+            createBooking1.Hide();
+            bookings1.Hide();
+            profile1.Hide();
+            createVenue1.Hide();
+            DateforBooking2.Hide();
+
+            // SHow
+            manageVenue1.Show();
+            manageVenue1.BringToFront();
+            manageVenue1._username = _username;
+            manageVenue1._venuename = Vname;
+            manageVenue1.FillVenueData();
+        }
+
+        private void buttonRefresh_Click(object sender, EventArgs e)
+        {
+            FillUserData();
         }
     }
 }

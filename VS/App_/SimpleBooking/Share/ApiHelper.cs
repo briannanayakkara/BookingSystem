@@ -56,6 +56,27 @@ namespace SimpleBooking.Share
             return null;
         }
 
+        public static async Task<Venues> GetVenueByName(string name)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.GetAsync(api + $"Venues/GetVenueByName/{name}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<Venues>(content);
+                }
+                else if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+                else
+                {
+                    throw new Exception($"Failed to get venue by name: {response.StatusCode}");
+                }
+            }
+        }
+
         // get all the venuesFor the admin 
         public static async Task<List<Venues>> GetAllVenuesForOwner(string username)
         {
@@ -182,6 +203,26 @@ namespace SimpleBooking.Share
         }
 
         // Put
+
+        //Venue 
+
+        public static async Task<string> UpdateVenue(UpdateVenue venue)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(venue), Encoding.UTF8, "application/json");
+                var response = await client.PutAsync(api + "Venues/UpdateVenue", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+            }
+        }
 
         public static async Task<HttpResponseMessage> EditUser(int UserID, UserData userData)
         {

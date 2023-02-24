@@ -19,6 +19,19 @@ namespace BookingAPI.Controllers
             _configuration = configuration;
         }
 
+        [HttpGet("GetVenueByName/{name}")]
+        public async Task<ActionResult<Venues>> GetVenueByName(string name)
+        {
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            var venue = await con.QuerySingleOrDefaultAsync<Venues>(
+                "SELECT * FROM Venues WHERE Name = @Name", new { Name = name });
+            if (venue == null)
+            {
+                return NotFound();
+            }
+            return Ok(venue);
+        }
+
         // GET: api/<VeluesController>
         [HttpGet("GetAllVenues")]
         public async Task<ActionResult<List<Venues>>> GetAllVenues()
