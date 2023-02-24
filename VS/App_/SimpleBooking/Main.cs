@@ -46,6 +46,7 @@ namespace SimpleBooking
         {
             createBooking1.Hide();
             profile1.Hide();
+            manageVenueItem1.Hide();
             bookings1.Hide();
             createVenue1.Hide();
             DateforBooking2.Hide();
@@ -59,6 +60,7 @@ namespace SimpleBooking
             profile1.Hide();
             createVenue1.Hide();
             bookings1.Hide();
+            manageVenueItem1.Hide();
             DateforBooking2.Hide();
             manageVenue1.Hide();
 
@@ -77,6 +79,7 @@ namespace SimpleBooking
             // hide
             profile1.Hide();
             createVenue1.Hide();
+            manageVenueItem1.Hide();
             manageVenue1.Hide();
             createBooking1.Hide();
             DateforBooking2.Hide();
@@ -95,6 +98,7 @@ namespace SimpleBooking
             createBooking1.Hide();
             createVenue1.Hide();
             manageVenue1.Hide();
+            manageVenueItem1.Hide();
             bookings1.Hide();
             DateforBooking2.Hide();
 
@@ -166,6 +170,7 @@ namespace SimpleBooking
             // hide
             createBooking1.Hide();
             bookings1.Hide();
+            manageVenueItem1.Hide();
             manageVenue1.Hide();
             DateforBooking2.Hide();
             profile1.Hide();
@@ -186,6 +191,7 @@ namespace SimpleBooking
             bookings1.Hide();
             manageVenue1.Hide();
             createVenue1.Hide();
+            manageVenueItem1.Hide();
             DateforBooking2.Hide();
 
 
@@ -207,6 +213,7 @@ namespace SimpleBooking
             profile1.Hide();
             manageVenue1.Hide();
             createVenue1.Hide();
+            manageVenueItem1.Hide();
 
 
             // reset fields
@@ -232,12 +239,16 @@ namespace SimpleBooking
             profile1.Hide();
             createVenue1.Hide();
             DateforBooking2.Hide();
+            manageVenue1.Hide();
 
             // SHow
-            manageVenue1.Show();
-            manageVenue1.BringToFront();
-            manageVenue1._username = _username;
-            manageVenue1._venuename = Vname;
+            manageVenueItem1.Show();
+            manageVenueItem1.BringToFront();
+            manageVenueItem1._username = _username;
+            manageVenueItem1._venuename = Vname;
+            manageVenueItem1.FillVenueItemsGrids(Vname,_username);
+
+
         }
 
         private void ManageVenuebtn_Click(object sender, EventArgs e)
@@ -246,6 +257,7 @@ namespace SimpleBooking
             createBooking1.Hide();
             bookings1.Hide();
             profile1.Hide();
+            manageVenueItem1.Hide();
             createVenue1.Hide();
             DateforBooking2.Hide();
 

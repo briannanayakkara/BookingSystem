@@ -168,6 +168,29 @@ namespace SimpleBooking.Share
             throw new NotImplementedException();
         }
 
+
+        //get venue items 
+
+        public static async Task<List<VenueItems>> GetVenueItemsByVenueName(string venueName, string username)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.GetAsync(api + $"VenueItems/GetVenueItemsByVenueName/{venueName}/{username}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var venueItems = JsonConvert.DeserializeObject<List<VenueItems>>(jsonString);
+                    return venueItems;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+
         // POST user
 
 
@@ -201,6 +224,19 @@ namespace SimpleBooking.Share
                 return await client.PostAsync(api + "Bookings/CreateBooking", content);
             }
         }
+
+        // venueItem 
+
+        public static async Task<HttpResponseMessage> CreateVenueItem(CreateVenueItem venueItem)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(venueItem), Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(api + "VenueItems/CreateVenueItem", content);
+                return response;
+            }
+        }
+
 
         // Put
 
@@ -264,6 +300,18 @@ namespace SimpleBooking.Share
                 var content = new StringContent(JsonConvert.SerializeObject(bookingStatus), Encoding.UTF8, "application/json");
 
                 return await client.PutAsync(api + $"Bookings/UpdateBookingStatus/{bookingId}", content);
+            }
+        }
+
+        // venueItem 
+
+        public static async Task<HttpResponseMessage> UpdateVenueItem(UpdateVenueItem venueItem)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(venueItem), Encoding.UTF8, "application/json");
+                var response = await client.PutAsync(api + "VenueItems/UpdateVenueItem", content);
+                return response;
             }
         }
 

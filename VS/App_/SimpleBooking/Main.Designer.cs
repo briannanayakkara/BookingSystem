@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonRefresh = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.Logout = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,7 +47,7 @@
             this.createVenue1 = new SimpleBooking.CreateVenue();
             this.DateforBooking2 = new SimpleBooking.UpdateBookings();
             this.manageVenue1 = new SimpleBooking.ManageVenue();
-            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.manageVenueItem1 = new SimpleBooking.ManageVenueItem();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,6 +69,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(158, 493);
             this.panel1.TabIndex = 0;
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRefresh.Location = new System.Drawing.Point(26, 123);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(97, 26);
+            this.buttonRefresh.TabIndex = 6;
+            this.buttonRefresh.Text = "SELECT VENUE";
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
             // comboBox1
             // 
@@ -223,22 +235,19 @@
             this.manageVenue1.Size = new System.Drawing.Size(804, 422);
             this.manageVenue1.TabIndex = 6;
             // 
-            // buttonRefresh
+            // manageVenueItem1
             // 
-            this.buttonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRefresh.Location = new System.Drawing.Point(26, 123);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(97, 26);
-            this.buttonRefresh.TabIndex = 6;
-            this.buttonRefresh.Text = "SELECT VENUE";
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            this.manageVenueItem1.Location = new System.Drawing.Point(203, 21);
+            this.manageVenueItem1.Name = "manageVenueItem1";
+            this.manageVenueItem1.Size = new System.Drawing.Size(775, 449);
+            this.manageVenueItem1.TabIndex = 7;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1070, 494);
+            this.Controls.Add(this.manageVenueItem1);
             this.Controls.Add(this.manageVenue1);
             this.Controls.Add(this.DateforBooking2);
             this.Controls.Add(this.createVenue1);
@@ -276,5 +285,6 @@
         private UpdateBookings DateforBooking2;
         private ManageVenue manageVenue1;
         private Button buttonRefresh;
+        private ManageVenueItem manageVenueItem1;
     }
 }
