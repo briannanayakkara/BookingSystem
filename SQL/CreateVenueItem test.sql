@@ -1,10 +1,10 @@
-exec [CreateVenueItem] 
-	-- Add the parameters for the stored procedure here
-	@username ='brian',
-	@VName ='bar8',
-	@TableNr = 6,
-	@Pax = 10,
-	@Type = 'Dance Floor'
+DECLARE @username varchar(50),
+	@VName varchar(20),
+	@TableNr int,
+	@Pax int,
+	@Type varchar(20)
+
+exec [CreateVenueItem] @username,@VName,@TableNr,@Pax,@Type
 
 	select * from VenueItems
 

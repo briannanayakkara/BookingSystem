@@ -24,7 +24,7 @@ insert into status
 select 1,'Available'
 
 insert into status
-select 2,'Not Available'
+select 2,'Booked'
 
 insert into status
 select 22,'Arrived'
@@ -50,7 +50,7 @@ CREATE TABLE Users(
 CREATE TABLE UserLogin(
 	UserID int FOREIGN KEY REFERENCES Users(UserID),
 	Username VARCHAR (20),
-	password NVARCHAR (20),
+	password varchar(max),
 )
 
 --- Venue info

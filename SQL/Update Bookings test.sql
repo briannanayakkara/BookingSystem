@@ -5,13 +5,7 @@ DECLARE @Pax int = null
 DECLARE @note varchar(MAX) = null
 DECLARE @TableID int = 9
 
-exec UpdateBooking 
-	@username,
-	@BoID,
-	@datetime,
-	@Pax,
-	@note,
-	@TableID
+exec UpdateBooking @username,@BoID,@datetime,@Pax,@note,@TableID
 
 	select * from Bookings
 	-- Look at bookings
