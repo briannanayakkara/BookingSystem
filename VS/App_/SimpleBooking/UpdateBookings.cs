@@ -202,8 +202,8 @@ namespace SimpleBooking
         {
             comboBookingID.Items.Clear();
             NewDate.Value = DateTime.Now;
-            HH.Text = "";
-            MM.Text = "";
+            HH1.Text = "";
+            MM1.Text = "";
             Pax_.Text = "";
             Commenttxt.Text = "";
             showBookings(SelectDate.Value.ToString("yyyy-MM-dd"));
@@ -212,10 +212,14 @@ namespace SimpleBooking
 
         private async void Updatebooking_Click(object sender, EventArgs e)
         {
+            string dateString = NewDate.Value.ToString("yyyy-MM-dd") + "T" + HH1.Text + ":" + MM1.Text + ":00.000Z";
+            DateTime date;
+            string format = "yyyy-MM-ddTHH:mm:ss.fffZ";
             var booking = new UpdateBooking
             {
+
                 ID = int.Parse(comboBookingID.Text),
-                Datetime = NewDate.Value,
+                Datetime = dateString,               
                 Pax = int.Parse(PaxPick.Text),
                 Note = Commentbox.Text,
                 Username = _username,
