@@ -58,6 +58,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.dataV = new System.Windows.Forms.DataGridView();
             this.Statusbtn = new System.Windows.Forms.Button();
+            this.AllBookingsBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Pax_)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PaxPick)).BeginInit();
@@ -304,9 +305,20 @@
             this.Statusbtn.UseVisualStyleBackColor = true;
             this.Statusbtn.Click += new System.EventHandler(this.Statusbtn_Click);
             // 
+            // AllBookingsBtn
+            // 
+            this.AllBookingsBtn.Location = new System.Drawing.Point(724, 68);
+            this.AllBookingsBtn.Name = "AllBookingsBtn";
+            this.AllBookingsBtn.Size = new System.Drawing.Size(100, 38);
+            this.AllBookingsBtn.TabIndex = 20;
+            this.AllBookingsBtn.Text = "All Bookings";
+            this.AllBookingsBtn.UseVisualStyleBackColor = true;
+            this.AllBookingsBtn.Click += new System.EventHandler(this.AllBookingsBtn_Click);
+            // 
             // UpdateBookings
             // 
             this.Controls.Add(this.dataV);
+            this.Controls.Add(this.AllBookingsBtn);
             this.Controls.Add(this.Statusbtn);
             this.Controls.Add(this.Updatebooking);
             this.Controls.Add(this.MM1);
@@ -366,5 +378,6 @@
         private Label label6;
         private DataGridView dataV;
         private Button Statusbtn;
+        private Button AllBookingsBtn;
     }
 }

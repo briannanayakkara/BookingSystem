@@ -112,6 +112,25 @@ namespace SimpleBooking.Share
             return null;
         }
 
+        public static async Task<List<BookingsData>> GetBookingsByVenue(string username, string venuename, string password)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.GetAsync(api + $"Bookings/GetBookingsByVname?username={username}&venuename={venuename}&password={password}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var bookings = JsonConvert.DeserializeObject<List<BookingsData>>(jsonString);
+                    return bookings;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
 
         public static async Task<List<BookingsData>> GetBookingByID(string id)
         {
@@ -290,6 +309,8 @@ namespace SimpleBooking.Share
 
             }
         }
+
+
 
         public static async Task<HttpResponseMessage> UpdateBookingStatus(int bookingId, string statusId, string username)
         {

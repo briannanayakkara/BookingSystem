@@ -17,6 +17,7 @@ namespace SimpleBooking
     {
         public string _username;
         public string _venuename;
+        public string _password;
         Dictionary<string, int> statusDict = new Dictionary<string, int>()
             {
                 { "Available", 1 },
@@ -291,6 +292,27 @@ namespace SimpleBooking
             {
                 string errorMessage = await response.Content.ReadAsStringAsync();
                 MessageBox.Show($"Error: {errorMessage}");
+            }
+        }
+
+        private async void AllBookingsBtn_Click(object sender, EventArgs e)
+        {
+            string username = _username;
+            string venuename = _venuename;
+            string password = _password;
+
+            //MessageBox.Show(username, venuename, password);
+
+            var bookings = await ApiHelper.GetBookingsByVenue(username, venuename, password);
+
+            if (bookings != null)
+            {
+                // populate gridview with bookings data
+                dataV.DataSource = bookings;
+            }
+            else
+            {
+                MessageBox.Show("Failed to get bookings data.");
             }
         }
     }

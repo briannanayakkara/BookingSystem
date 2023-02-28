@@ -17,7 +17,8 @@ namespace SimpleBooking
         public int _userID;
         public int _i;
         public string Vname;
-        public Main(string username, int i)
+        public string _pass;
+        public Main(string username, int i, string pass)
         {
             InitializeComponent();
             _username = username;
@@ -25,6 +26,7 @@ namespace SimpleBooking
             _i = i;
             enablebtns();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            _pass = pass;
         }
 
 
@@ -137,6 +139,7 @@ namespace SimpleBooking
                 ManageVenueItemsbtn.Visible = true;
                 ManageVenuebtn.Visible = true;
                 CreateVenue.Visible = true;
+                buttonRefresh.Visible = true;
                 FillUserData();
             }
             else
@@ -148,6 +151,8 @@ namespace SimpleBooking
                 ManageVenueItemsbtn.Visible = false;
                 ManageVenuebtn.Visible = false;
                 CreateVenue.Visible = false;
+                buttonRefresh.Visible = false;
+
             }
 
         }
@@ -225,6 +230,7 @@ namespace SimpleBooking
             DateforBooking2.BringToFront();
             DateforBooking2._username = _username;
             DateforBooking2._venuename = Vname;
+            DateforBooking2._password = _pass;
             
                        
 
@@ -272,6 +278,11 @@ namespace SimpleBooking
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
             FillUserData();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
