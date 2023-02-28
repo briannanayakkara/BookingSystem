@@ -11,6 +11,7 @@ C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\Newtonsoft.Json.Bson.dll
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.AssemblyReference.cache
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Bookings.resources
+<<<<<<< Updated upstream
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateBooking.resources
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateUserF.resources
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateVenue.resources
@@ -18,6 +19,13 @@ C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Main.resources
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Profile.resources
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.UpdateBookings.resources
+=======
+C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateUserF.resources
+C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Form1.resources
+C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Main.resources
+C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Profile.resources
+C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Venues.resources
+>>>>>>> Stashed changes
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.GenerateResource.cache
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.AssemblyInfoInputs.cache
@@ -29,5 +37,8 @@ C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.pdb
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.genruntimeconfig.cache
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\ref\SimpleBooking.dll
+<<<<<<< Updated upstream
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.ManageVenue.resources
 C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.ManageVenueItem.resources
+=======
+>>>>>>> Stashed changes
