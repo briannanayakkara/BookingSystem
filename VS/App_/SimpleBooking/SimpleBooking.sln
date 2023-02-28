@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystem", "BookingSystem.csproj", "{7C1F5F11-5D5F-41CC-B6D7-3ABBEC81BF1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBooking", "SimpleBooking.csproj", "{5D2BDF10-457A-4B7A-AF06-A83D15CC49F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7C1F5F11-5D5F-41CC-B6D7-3ABBEC81BF1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C1F5F11-5D5F-41CC-B6D7-3ABBEC81BF1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C1F5F11-5D5F-41CC-B6D7-3ABBEC81BF1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C1F5F11-5D5F-41CC-B6D7-3ABBEC81BF1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D2BDF10-457A-4B7A-AF06-A83D15CC49F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D2BDF10-457A-4B7A-AF06-A83D15CC49F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D2BDF10-457A-4B7A-AF06-A83D15CC49F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D2BDF10-457A-4B7A-AF06-A83D15CC49F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {49A53E39-D74B-49F3-9EE1-110A9B8DD5B7}
+		SolutionGuid = {D267E387-ADD2-4D92-9881-D59DE3CB45E1}
 	EndGlobalSection
 EndGlobal

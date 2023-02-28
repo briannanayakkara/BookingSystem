@@ -1,4 +1,4 @@
-namespace BookingSystem
+namespace SimpleBooking
 {
     internal static class Program
     {
