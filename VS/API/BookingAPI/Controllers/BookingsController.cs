@@ -103,6 +103,80 @@ namespace BookingAPI.Controllers
             return bookings.ToList();
         }
 
+<<<<<<< HEAD
+        [HttpGet("GetBookingsByVname")]
+        public async Task<ActionResult<IEnumerable<BookingsByDate>>> GetBookingsByVname(string username, string venuename, string password)
+        {
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+
+            var user = await con.QuerySingleOrDefaultAsync<UserLogin>(
+                "SELECT * FROM UserLogin WHERE Username = @Username", new { Username = username });
+            if (user == null)
+            {
+                return BadRequest("User does not exist");
+            }
+
+            if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
+            {
+                return BadRequest("Invalid password");
+=======
+        [HttpGet("GetBookingsByDate")]
+        public async Task<ActionResult<IEnumerable<BookingsByDate>>> GetBookingsByDate(string username, string venueName, DateTime date)
+        {
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+
+            var venue = await con.QuerySingleOrDefaultAsync<Venues>(
+                "SELECT VenueID FROM Venues WHERE Name = @VenueName", new { VenueName = venueName });
+            if (venue == null)
+            {
+                return BadRequest("Venue does not exist");
+            }
+
+            var venueOwner = await con.QuerySingleOrDefaultAsync<VenueOwners>(
+                "SELECT UserID FROM VenueOwners WHERE VenueID = @VenueID AND UserID = (SELECT UserID FROM Users WHERE username = @username)",
+                new { VenueID = venue.VenueID, Username = username });
+            if (venueOwner == null)
+            {
+                return BadRequest("You are not an owner of this venue");
+>>>>>>> API
+            }
+
+            var bookings = await con.QueryAsync<BookingsByDate>(@"
+        SELECT 
+            b.ID, 
+            u.Firstname + ' ' + u.Lastname AS fullname, 
+            u.Email, 
+            u.Phone, 
+            b.Pax AS pax, 
+            vi.Pax AS tableSize, 
+            vi.TableNr, 
+            b.Note,
+            b.Time, 
+            v.name AS Venue, 
+            uvi.Firstname + ' ' + uvi.Lastname AS venueOwner, 
+            s.Status 
+        FROM 
+            bookings b 
+            JOIN users u ON u.UserID = b.UserID 
+            JOIN Venues v ON b.VenueID = v.VenueID
+            JOIN VenueItems vi ON b.TableID = vi.TableID
+            JOIN VenueOwners vo ON v.VenueID = vo.VenueID
+            JOIN Users uvi ON vo.UserID = uvi.UserID
+            JOIN status s ON b.status = s.ID
+        WHERE 
+<<<<<<< HEAD
+            v.Name = @venuename",
+                new { venuename = venuename });
+=======
+            v.VenueID = @VenueID 
+            AND CONVERT(date, b.time, 111) = @date",
+                new { VenueID = venue.VenueID, Date = date.Date });
+>>>>>>> API
+
+            return bookings.ToList();
+        }
+
+<<<<<<< HEAD
         [HttpGet("GetBookingsByDate")]
         public async Task<ActionResult<IEnumerable<BookingsByDate>>> GetBookingsByDate(string username, string venueName, DateTime date)
         {
@@ -153,6 +227,8 @@ namespace BookingAPI.Controllers
             return bookings.ToList();
         }
 
+=======
+>>>>>>> API
 
 
         // POST api/<BookingsController>

@@ -17,7 +17,12 @@ namespace SimpleBooking
         public int _userID;
         public int _i;
         public string Vname;
+<<<<<<< HEAD
+        public string _pass;
+        public Main(string username, int i, string pass)
+=======
         public Main(string username, int i)
+>>>>>>> API
         {
             InitializeComponent();
             _username = username;
@@ -25,6 +30,10 @@ namespace SimpleBooking
             _i = i;
             enablebtns();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+<<<<<<< HEAD
+            _pass = pass;
+=======
+>>>>>>> API
         }
 
 
@@ -137,6 +146,10 @@ namespace SimpleBooking
                 ManageVenueItemsbtn.Visible = true;
                 ManageVenuebtn.Visible = true;
                 CreateVenue.Visible = true;
+<<<<<<< HEAD
+                buttonRefresh.Visible = true;
+=======
+>>>>>>> API
                 FillUserData();
             }
             else
@@ -148,6 +161,11 @@ namespace SimpleBooking
                 ManageVenueItemsbtn.Visible = false;
                 ManageVenuebtn.Visible = false;
                 CreateVenue.Visible = false;
+<<<<<<< HEAD
+                buttonRefresh.Visible = false;
+
+=======
+>>>>>>> API
             }
 
         }
@@ -225,6 +243,10 @@ namespace SimpleBooking
             DateforBooking2.BringToFront();
             DateforBooking2._username = _username;
             DateforBooking2._venuename = Vname;
+<<<<<<< HEAD
+            DateforBooking2._password = _pass;
+=======
+>>>>>>> API
             
                        
 
@@ -273,5 +295,13 @@ namespace SimpleBooking
         {
             FillUserData();
         }
+<<<<<<< HEAD
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+=======
+>>>>>>> API
     }
 }
