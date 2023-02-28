@@ -1,44 +1,66 @@
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.exe
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.deps.json
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.runtimeconfig.json
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.dll
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.pdb
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\BCrypt.Net-Next.dll
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\IdentityModel.dll
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\IdentityServer4.Storage.dll
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\System.Net.Http.Formatting.dll
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\Newtonsoft.Json.Bson.dll
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.AssemblyReference.cache
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Bookings.resources
-<<<<<<< Updated upstream
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateBooking.resources
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateUserF.resources
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateVenue.resources
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Form1.resources
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Main.resources
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Profile.resources
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.UpdateBookings.resources
-=======
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateUserF.resources
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Form1.resources
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Main.resources
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Profile.resources
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Venues.resources
->>>>>>> Stashed changes
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.GenerateResource.cache
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.AssemblyInfoInputs.cache
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.AssemblyInfo.cs
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.CoreCompileInputs.cache
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.CopyComplete
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.dll
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\refint\SimpleBooking.dll
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.pdb
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.genruntimeconfig.cache
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\ref\SimpleBooking.dll
-<<<<<<< Updated upstream
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.ManageVenue.resources
-C:\Users\dimal\Desktop\Final project new\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.ManageVenueItem.resources
-=======
->>>>>>> Stashed changes
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.exe
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.deps.json
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.runtimeconfig.json
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.dll
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.pdb
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\BCrypt.Net-Next.dll
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\IdentityModel.dll
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\IdentityServer4.Storage.dll
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\System.Net.Http.Formatting.dll
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\Newtonsoft.Json.Bson.dll
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.AssemblyReference.cache
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Bookings.resources
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateBooking.resources
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateUserF.resources
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateVenue.resources
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Form1.resources
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Main.resources
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.ManageVenue.resources
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.ManageVenueItem.resources
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Profile.resources
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.UpdateBookings.resources
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.GenerateResource.cache
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.AssemblyInfoInputs.cache
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.AssemblyInfo.cs
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.CoreCompileInputs.cache
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.CopyComplete
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.dll
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\refint\SimpleBooking.dll
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.pdb
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.genruntimeconfig.cache
+C:\Users\dimal\Desktop\New folder\BookingSystem-main\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\ref\SimpleBooking.dll
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.exe
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.deps.json
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.runtimeconfig.json
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.dll
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\SimpleBooking.pdb
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\BCrypt.Net-Next.dll
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\IdentityModel.dll
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\IdentityServer4.Storage.dll
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\System.Net.Http.Formatting.dll
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\bin\Debug\net6.0-windows\Newtonsoft.Json.Bson.dll
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.AssemblyReference.cache
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Bookings.resources
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateBooking.resources
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateUserF.resources
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.CreateVenue.resources
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Form1.resources
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Main.resources
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.ManageVenue.resources
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.ManageVenueItem.resources
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.Profile.resources
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.UpdateBookings.resources
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.GenerateResource.cache
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.AssemblyInfoInputs.cache
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.AssemblyInfo.cs
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.CoreCompileInputs.cache
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.csproj.CopyComplete
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.dll
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\refint\SimpleBooking.dll
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.pdb
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\SimpleBooking.genruntimeconfig.cache
+C:\Users\dimal\Desktop\Final Project\BookingSystem\VS\App_\SimpleBooking\obj\Debug\net6.0-windows\ref\SimpleBooking.dll

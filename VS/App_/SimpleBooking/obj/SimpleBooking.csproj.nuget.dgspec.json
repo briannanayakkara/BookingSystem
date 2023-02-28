@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dimal\\Desktop\\Final project new\\BookingSystem\\VS\\App_\\SimpleBooking\\SimpleBooking.csproj": {}
+    "C:\\Users\\dimal\\Desktop\\Final Project\\BookingSystem\\VS\\App_\\SimpleBooking\\SimpleBooking.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dimal\\Desktop\\Final project new\\BookingSystem\\VS\\App_\\SimpleBooking\\SimpleBooking.csproj": {
+    "C:\\Users\\dimal\\Desktop\\Final Project\\BookingSystem\\VS\\App_\\SimpleBooking\\SimpleBooking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dimal\\Desktop\\Final project new\\BookingSystem\\VS\\App_\\SimpleBooking\\SimpleBooking.csproj",
+        "projectUniqueName": "C:\\Users\\dimal\\Desktop\\Final Project\\BookingSystem\\VS\\App_\\SimpleBooking\\SimpleBooking.csproj",
         "projectName": "SimpleBooking",
-        "projectPath": "C:\\Users\\dimal\\Desktop\\Final project new\\BookingSystem\\VS\\App_\\SimpleBooking\\SimpleBooking.csproj",
+        "projectPath": "C:\\Users\\dimal\\Desktop\\Final Project\\BookingSystem\\VS\\App_\\SimpleBooking\\SimpleBooking.csproj",
         "packagesPath": "C:\\Users\\dimal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dimal\\Desktop\\Final project new\\BookingSystem\\VS\\App_\\SimpleBooking\\obj\\",
+        "outputPath": "C:\\Users\\dimal\\Desktop\\Final Project\\BookingSystem\\VS\\App_\\SimpleBooking\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

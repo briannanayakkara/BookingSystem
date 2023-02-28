@@ -17,12 +17,8 @@ namespace SimpleBooking
         public int _userID;
         public int _i;
         public string Vname;
-<<<<<<< HEAD
         public string _pass;
         public Main(string username, int i, string pass)
-=======
-        public Main(string username, int i)
->>>>>>> API
         {
             InitializeComponent();
             _username = username;
@@ -30,10 +26,7 @@ namespace SimpleBooking
             _i = i;
             enablebtns();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-<<<<<<< HEAD
             _pass = pass;
-=======
->>>>>>> API
         }
 
 
@@ -146,26 +139,20 @@ namespace SimpleBooking
                 ManageVenueItemsbtn.Visible = true;
                 ManageVenuebtn.Visible = true;
                 CreateVenue.Visible = true;
-<<<<<<< HEAD
                 buttonRefresh.Visible = true;
-=======
->>>>>>> API
                 FillUserData();
             }
             else
             {
-                
+
                 label1.Visible = false;
                 comboBox1.Visible = false;
                 ManageBookingsbtn.Visible = false;
                 ManageVenueItemsbtn.Visible = false;
                 ManageVenuebtn.Visible = false;
                 CreateVenue.Visible = false;
-<<<<<<< HEAD
                 buttonRefresh.Visible = false;
 
-=======
->>>>>>> API
             }
 
         }
@@ -243,12 +230,9 @@ namespace SimpleBooking
             DateforBooking2.BringToFront();
             DateforBooking2._username = _username;
             DateforBooking2._venuename = Vname;
-<<<<<<< HEAD
             DateforBooking2._password = _pass;
-=======
->>>>>>> API
-            
-                       
+
+
 
         }
 
@@ -268,7 +252,7 @@ namespace SimpleBooking
             manageVenueItem1.BringToFront();
             manageVenueItem1._username = _username;
             manageVenueItem1._venuename = Vname;
-            manageVenueItem1.FillVenueItemsGrids(Vname,_username);
+            manageVenueItem1.FillVenueItemsGrids(Vname, _username);
 
 
         }
@@ -295,13 +279,10 @@ namespace SimpleBooking
         {
             FillUserData();
         }
-<<<<<<< HEAD
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
-=======
->>>>>>> API
     }
 }

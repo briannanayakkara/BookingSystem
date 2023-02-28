@@ -17,22 +17,14 @@ namespace SimpleBooking
             if (result == 1)
             {
                 // navigate to the main page for venue owners
-<<<<<<< HEAD
-                Main mainPage = new Main(username.Text,result,password.Text);
-=======
-                Main mainPage = new Main(username.Text,result);
->>>>>>> API
+                Main mainPage = new Main(username.Text, result, password.Text);
                 mainPage.Show();
                 this.Hide();
             }
             else if (result == 0)
             {
                 // navigate to the main page for non-venue owners
-<<<<<<< HEAD
-                Main mainPage = new Main(username.Text,result,password.Text);
-=======
-                Main mainPage = new Main(username.Text,result);
->>>>>>> API
+                Main mainPage = new Main(username.Text, result, password.Text);
                 mainPage.Show();
                 this.Hide();
             }
@@ -49,7 +41,7 @@ namespace SimpleBooking
             CreateUserF create = new CreateUserF(checkBox1.Checked);
             this.Hide();
             create.Show();
-            
+
         }
     }
 }

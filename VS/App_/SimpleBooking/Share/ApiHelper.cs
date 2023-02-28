@@ -112,7 +112,6 @@ namespace SimpleBooking.Share
             return null;
         }
 
-<<<<<<< HEAD
         public static async Task<List<BookingsData>> GetBookingsByVenue(string username, string venuename, string password)
         {
             using (HttpClient client = new HttpClient())
@@ -132,8 +131,6 @@ namespace SimpleBooking.Share
             }
         }
 
-=======
->>>>>>> API
 
         public static async Task<List<BookingsData>> GetBookingByID(string id)
         {
@@ -313,11 +310,8 @@ namespace SimpleBooking.Share
             }
         }
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> API
         public static async Task<HttpResponseMessage> UpdateBookingStatus(int bookingId, string statusId, string username)
         {
             using (HttpClient client = new HttpClient())

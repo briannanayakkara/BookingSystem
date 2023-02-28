@@ -56,11 +56,7 @@ namespace BookingAPI.Controllers
                 }
                 if (BCrypt.Net.BCrypt.Verify(password, user.Password))
                 {
-<<<<<<< HEAD
                     var venueOwner = await connection.QueryFirstOrDefaultAsync<VenueOwners>("SELECT * FROM Users where AdminLevel = 1 and Username = @UserID", new { UserID = user.UserName });
-=======
-                    var venueOwner = await connection.QueryFirstOrDefaultAsync<VenueOwners>("SELECT * FROM VenueOwners vo join Users u on u.UserID = vo.UserID WHERE u.Username = @UserID", new { UserID = user.UserName });
->>>>>>> API
                     if (venueOwner != null)
                     {
                         return Ok("Login successful. You are a venue owner.");

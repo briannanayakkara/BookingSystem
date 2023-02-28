@@ -17,10 +17,7 @@ namespace SimpleBooking
     {
         public string _username;
         public string _venuename;
-<<<<<<< HEAD
         public string _password;
-=======
->>>>>>> API
         Dictionary<string, int> statusDict = new Dictionary<string, int>()
             {
                 { "Available", 1 },
@@ -76,7 +73,7 @@ namespace SimpleBooking
                 Commentbox.Visible = false;
                 Updatebooking.Visible = false;
             }
-            
+
         }
 
         public async void FillUserData()
@@ -103,7 +100,7 @@ namespace SimpleBooking
 
         private async void DateforBooking_ValueChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private async void showBookings(string dateString)
@@ -156,11 +153,11 @@ namespace SimpleBooking
             }
         }
 
-      
+
 
         private async void combobookinID_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void UpdateBookings_Load(object sender, EventArgs e)
@@ -189,7 +186,7 @@ namespace SimpleBooking
 
         private async void UpdateBookingbtn_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         public async void UpdateStatus()
@@ -198,7 +195,7 @@ namespace SimpleBooking
             {
                 string status = comboBoxUpdateStatus.SelectedItem.ToString();
                 int statusId = statusDict[status];
-               
+
             }
         }
 
@@ -206,13 +203,8 @@ namespace SimpleBooking
         {
             comboBookingID.Items.Clear();
             NewDate.Value = DateTime.Now;
-<<<<<<< HEAD
             HH1.Text = "";
             MM1.Text = "";
-=======
-            HH.Text = "";
-            MM.Text = "";
->>>>>>> API
             Pax_.Text = "";
             Commenttxt.Text = "";
             showBookings(SelectDate.Value.ToString("yyyy-MM-dd"));
@@ -221,7 +213,6 @@ namespace SimpleBooking
 
         private async void Updatebooking_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
             string dateString = NewDate.Value.ToString("yyyy-MM-dd") + "T" + HH1.Text + ":" + MM1.Text + ":00.000Z";
             DateTime date;
             string format = "yyyy-MM-ddTHH:mm:ss.fffZ";
@@ -229,13 +220,7 @@ namespace SimpleBooking
             {
 
                 ID = int.Parse(comboBookingID.Text),
-                Datetime = dateString,               
-=======
-            var booking = new UpdateBooking
-            {
-                ID = int.Parse(comboBookingID.Text),
-                Datetime = NewDate.Value,
->>>>>>> API
+                Datetime = dateString,
                 Pax = int.Parse(PaxPick.Text),
                 Note = Commentbox.Text,
                 Username = _username,
@@ -286,7 +271,7 @@ namespace SimpleBooking
 
         }
 
-        
+
         private void comboStatusaID_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
@@ -309,7 +294,6 @@ namespace SimpleBooking
                 MessageBox.Show($"Error: {errorMessage}");
             }
         }
-<<<<<<< HEAD
 
         private async void AllBookingsBtn_Click(object sender, EventArgs e)
         {
@@ -331,7 +315,5 @@ namespace SimpleBooking
                 MessageBox.Show("Failed to get bookings data.");
             }
         }
-=======
->>>>>>> API
     }
 }

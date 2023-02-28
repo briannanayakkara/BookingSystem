@@ -5,7 +5,6 @@
     <Compile Update="Bookings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-<<<<<<< Updated upstream
     <Compile Update="CreateBooking.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -15,18 +14,12 @@
     <Compile Update="CreateVenue.cs">
       <SubType>UserControl</SubType>
     </Compile>
-=======
-    <Compile Update="CreateUserF.cs">
-      <SubType>Form</SubType>
-    </Compile>
->>>>>>> Stashed changes
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-<<<<<<< Updated upstream
     <Compile Update="ManageVenue.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -37,12 +30,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="UpdateBookings.cs">
-=======
-    <Compile Update="Profile.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Venues.cs">
->>>>>>> Stashed changes
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
