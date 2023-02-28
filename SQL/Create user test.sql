@@ -8,14 +8,7 @@ DECLARE @AdminLvl int = 1,
 	@bday datetime= '1999-07-15',
 	@pass nvarchar(50) ='pass2Test!'
 
-exec CreateUser @AdminLvl,
-				@firstname,
-				@lastname,
-				@username,
-				@email,
-				@phone,
-				@region,
-				@bday,@pass
+exec CreateUser @AdminLvl,@firstname,@lastname,@username,@email,@phone,@region,@bday,@pass
 
 select * from users 
 

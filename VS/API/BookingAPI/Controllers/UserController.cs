@@ -23,172 +23,135 @@ namespace BookingAPI.Controllers
         [HttpGet("GetAllUsers")]
         public async Task<ActionResult<List<Users>>> GetAllUsers()
         {
-
             using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
-            IEnumerable<Users> u = await SelectAllUsers(con);
-
-            return Ok(u);
+            var result = await con.QueryAsync<Users>("select * from Users");
+            return Ok(result);
         }
 
-        [HttpGet("GetUserByID/{userID}")]
-        public async Task<ActionResult<List<Users>>> GetUserByID(int userID)
+        [HttpGet("GetUser/{username}")]
+        public async Task<ActionResult<Users>> GetUser(string username)
         {
-
             using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
-            var u = await con.QueryAsync<Users>("select * from users where UserID = @UserID", new { UserID = userID });
-
-            return Ok(u);
-        }
-
-        private static async Task<IEnumerable<Users>> SelectAllUsers(SqlConnection con)
-        {
-            return await con.QueryAsync<Users>("select * from Users");
+            var result = await con.QueryFirstOrDefaultAsync<Users>("select * from Users where username = @username", new { username = username });
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound("User not found.");
+            }
         }
 
 
         [HttpGet("LogInCheck")]
-
-        public async Task<ActionResult<string>> LogInCheck(string username, string password)
+        public async Task<IActionResult> LogInCheck(string username, string password)
         {
-            string q = @"select * from UserLogin where username = @username";
-
-            DataTable dt = new DataTable();
-            string con = _configuration.GetConnectionString("BookingSystem");
-            SqlDataReader sdr;
-            List<UserLogin> ulList = new List<UserLogin>();
-            Response r = new Response();
-            await using (SqlConnection cnn = new SqlConnection(con))
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("BookingSystem")))
             {
-                cnn.Open();
-                using (SqlCommand cmd = new SqlCommand(q, cnn))
+                var user = await connection.QueryFirstOrDefaultAsync<UserLogin>("SELECT * FROM UserLogin WHERE Username = @Username", new { Username = username });
+                if (user == null)
                 {
-                    cmd.Parameters.Add("@username", SqlDbType.VarChar).Value = username;
-
-                    sdr = cmd.ExecuteReader();
-                    dt.Load(sdr);
-                    sdr.Close();
-                    cnn.Close();
-
+                    return NotFound("User not found.");
+                }
+                if (BCrypt.Net.BCrypt.Verify(password, user.Password))
+                {
+                    var venueOwner = await connection.QueryFirstOrDefaultAsync<VenueOwners>("SELECT * FROM VenueOwners vo join Users u on u.UserID = vo.UserID WHERE u.Username = @UserID", new { UserID = user.UserName });
+                    if (venueOwner != null)
+                    {
+                        return Ok("Login successful. You are a venue owner.");
+                    }
+                    else
+                    {
+                        return Ok("Login successful. You are not a venue owner.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Invalid password.");
                 }
             }
-            if (dt.Rows.Count > 0)
+        }
+
+
+        [HttpPost("CreateUser")]
+        public async Task<IActionResult> CreateUser([FromBody] UserData userData)
+        {
+            var password = BCrypt.Net.BCrypt.HashPassword(userData.Password);
+
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            var existingUser = await con.QueryFirstOrDefaultAsync<UserData>("SELECT * FROM Users WHERE username = @username", new { username = userData.Username });
+
+            if (existingUser != null)
             {
-                UserLogin ul = new UserLogin();
-                ul.UserName = Convert.ToString(dt.Rows[0]["Username"]);
-                ul.Password = Convert.ToString(dt.Rows[0]["password"]);
-                ulList.Add(ul);
-                bool isValidPassword = BCrypt.Net.BCrypt.Verify(password, ul.Password);
+                return BadRequest("A user with the same username already exists.");
+            }
 
-                if (isValidPassword)
-                {
-                    return Ok("Log in successfull");
+            var parameters = new DynamicParameters();
+            parameters.Add("@username", userData.Username, DbType.String);
+            parameters.Add("@firstname", userData.Firstname, DbType.String);
+            parameters.Add("@lastname", userData.Lastname, DbType.String);
+            parameters.Add("@email", userData.Email, DbType.String);
+            parameters.Add("@phone", userData.Phone, DbType.Int32);
+            parameters.Add("@region", userData.Region, DbType.String);
+            parameters.Add("@bday", userData.Bday, DbType.DateTime);
+            parameters.Add("@AdminLvl", userData.AdminLvl, DbType.Int32);
+            parameters.Add("@pass", password, DbType.String);
+            parameters.Add("@ID", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                }
-                else return JsonConvert.SerializeObject("invalid password");
+            await con.ExecuteAsync("INSERT INTO Users(Username,Firstname,Lastname,Email,Phone,Region,Birthday,AdminLevel) SELECT @username,@firstname,@lastname,@email,@phone,@region,@bday,@AdminLvl; SET @ID = (SELECT UserID FROM Users WHERE username = @username); INSERT INTO UserLogin(UserID,Username,password) SELECT @ID,@username,@pass", parameters);
+            var userID = parameters.Get<int>("@ID");
+
+            if (userID > 0)
+            {
+                return Ok("User created successfully.");
             }
             else
             {
-                r.StatusCode = 100;
-                r.Message = "No Data found";
-                return JsonConvert.SerializeObject(r);
-
+                return StatusCode(500, "Failed to create user.");
             }
         }
 
 
-
-        [HttpPost] 
-        [Route("CreateUser/{AdminLevel}/{Fname}/{SName}/{UserName}/{Email}/{Phone}/{Region}/{Birthday}/{pass}")]
-        public async Task<ActionResult<string>> CreateUser(int AdminLevel, string Fname, string SName, string UserName, string Email, string Phone, string Region, string Birthday, string pass)
+        [HttpPut("EditUser/{UserID}")]
+        public async Task<IActionResult> EditUser(int UserID, [FromBody] UserData userData)
         {
-            pass = BCrypt.Net.BCrypt.HashPassword(pass);
+            var password = BCrypt.Net.BCrypt.HashPassword(userData.Password);
 
-            string q = "exec CreateUser @AdminLvl,@firstname,@lastname,@username,@email,@phone,@region,@bday,@pass";
+            using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+            var parameters = new DynamicParameters();
+            parameters.Add("@ID", UserID, DbType.Int32);
+            parameters.Add("@AdminLvl", userData.AdminLvl, DbType.Int32);
+            parameters.Add("@firstname", userData.Firstname, DbType.String);
+            parameters.Add("@lastname", userData.Lastname, DbType.String);
+            parameters.Add("@username", userData.Username, DbType.String);
+            parameters.Add("@email", userData.Email, DbType.String);
+            parameters.Add("@phone", userData.Phone, DbType.Int32);
+            parameters.Add("@region", userData.Region, DbType.String);
+            parameters.Add("@bday", userData.Bday, DbType.DateTime);
+            parameters.Add("@pass", password, DbType.String);
 
+            await con.ExecuteAsync("IF (isnull(@AdminLvl,'') = '') BEGIN SET @AdminLvl = (SELECT AdminLevel FROM users WHERE UserID = @ID) END IF (isnull(@firstname,'') = '') BEGIN SET @firstname = (SELECT Firstname FROM users WHERE UserID = @ID) END IF (isnull(@lastname,'') = '') BEGIN SET @lastname = (SELECT Lastname FROM users WHERE UserID = @ID) END IF (isnull(@username,'') = '') BEGIN SET @username = (SELECT Username FROM Users WHERE UserID = @ID) END IF (isnull(@email,'') = '') BEGIN SET @email = (SELECT Email FROM Users WHERE UserID = @ID) END IF (@phone IS NULL) OR (@phone = '') BEGIN SET @phone = (SELECT Phone FROM Users WHERE UserID = @ID) END IF (isnull(@region,'') = '') BEGIN SET @region = (SELECT Region FROM Users WHERE UserID = @ID) END IF (isnull(@bday,'') = '') BEGIN SET @bday = (SELECT Birthday FROM Users WHERE UserID = @ID) END IF (isnull(@pass,'') = '') BEGIN SET @pass = (SELECT password FROM UserLogin WHERE UserID = @ID) END IF EXISTS (SELECT * FROM users WHERE UserID = @ID) BEGIN UPDATE Users SET Username = @username, firstname = @firstname, lastname = @lastname, Email = @email, Phone = @phone, Region = @region, Birthday = @bday, AdminLevel = @AdminLvl WHERE UserID = @ID UPDATE UserLogin SET password = @pass, Username = @username WHERE UserID = @ID END", parameters);
 
-
-            DataTable dt = new DataTable();
-            string con = _configuration.GetConnectionString("BookingSystem");
-           await using (SqlConnection cnn = new SqlConnection(con))
-            {
-                cnn.Open();
-                using (SqlCommand cmd = new SqlCommand(q, cnn))
-                {
-                    cmd.Parameters.Add("@AdminLvl", SqlDbType.Int).Value = AdminLevel;
-                    cmd.Parameters.Add("@firstname", SqlDbType.VarChar).Value = Fname;
-                    cmd.Parameters.Add("@lastname", SqlDbType.VarChar).Value = SName;
-                    cmd.Parameters.Add("@username", SqlDbType.VarChar).Value = UserName;
-                    cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = Email;
-                    cmd.Parameters.Add("@phone", SqlDbType.VarChar).Value = Phone;
-                    cmd.Parameters.Add("@region", SqlDbType.VarChar).Value = Region;
-                    cmd.Parameters.Add("@bday", SqlDbType.VarChar).Value = Birthday;
-                    cmd.Parameters.Add("@pass", SqlDbType.VarChar).Value = pass;
-
-                    SqlDataReader sdr = cmd.ExecuteReader();
-                    dt.Load(sdr);
-                    sdr.Close();
-                    cnn.Close();
-
-                }
-            }
-
-            return Ok("New employee added Succesfull");
-        }
-
-
-        [HttpPut("EditUser/{UserID}/{AdminLevel}/{Fname}/{SName}/{UserName}/{Email}/{Phone}/{Region}/{Birthday}/{pass}")]
-        public String EditUser(int UserID, int? AdminLevel, string? Fname, string? SName, string? UserName, string? Email, string? Phone, string? Region, string? Birthday, string? pass)
-        {
-            if (pass != null)
-            { pass = BCrypt.Net.BCrypt.HashPassword(pass); }
-            
-
-            string q = @"exec [UpdateUser] @AdminLvl,@firstname,@lastname,@username,@email,@phone,@region,@bday,@pass,@ID";
-            
-            DataTable dt = new DataTable();
-            string con = _configuration.GetConnectionString("BookingSystem");
-            SqlDataReader sdr;
-            using (SqlConnection cnn = new SqlConnection(con))
-            {
-                cnn.Open();
-                using (SqlCommand cmd = new SqlCommand(q, cnn))
-                {
-                    cmd.Parameters.Add("@AdminLvl", SqlDbType.Int).Value = AdminLevel;
-                    cmd.Parameters.Add("@firstname", SqlDbType.VarChar).Value = Fname;
-                    cmd.Parameters.Add("@lastname", SqlDbType.VarChar).Value = SName;
-                    cmd.Parameters.Add("@username", SqlDbType.VarChar).Value = UserName;
-                    cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = Email;
-                    cmd.Parameters.Add("@phone", SqlDbType.VarChar).Value = Phone;
-                    cmd.Parameters.Add("@region", SqlDbType.VarChar).Value = Region;
-                    cmd.Parameters.Add("@bday", SqlDbType.VarChar).Value = Birthday;
-                    cmd.Parameters.Add("@pass", SqlDbType.VarChar).Value = pass;
-                    cmd.Parameters.Add("@ID", SqlDbType.VarChar).Value = UserID;
-
-                    sdr = cmd.ExecuteReader();
-                    dt.Load(sdr);
-                    sdr.Close();
-                    cnn.Close();
-
-                }
-            }
-
-            
-            return JsonConvert.SerializeObject(dt);
-
+            return Ok("User edited successfully.");
         }
 
         [HttpDelete("DeleteUser/{UserID}")]
-        public async Task<ActionResult<List<Users>>> DeleteUser(int UserID)
+        public async Task<ActionResult<List<string>>> DeleteUser(int UserID)
         {
-
             using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
-            await con.ExecuteAsync("exec DeleteUser @ID", new { ID = UserID});
-            return Ok(await SelectAllUsers(con));
+            var result = await con.QueryFirstOrDefaultAsync<string>("delete from UserLogin where @ID; delete from Users where @ID", new { ID = UserID });
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return StatusCode(500, "Failed to delete user.");
+            }
         }
 
-       
-    }
 
-    //internal record NewRecord(string Pass);
+    }
 }
 
