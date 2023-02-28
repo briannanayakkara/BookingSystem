@@ -17,14 +17,22 @@ namespace SimpleBooking
             if (result == 1)
             {
                 // navigate to the main page for venue owners
+<<<<<<< HEAD
                 Main mainPage = new Main(username.Text,result,password.Text);
+=======
+                Main mainPage = new Main(username.Text,result);
+>>>>>>> API
                 mainPage.Show();
                 this.Hide();
             }
             else if (result == 0)
             {
                 // navigate to the main page for non-venue owners
+<<<<<<< HEAD
                 Main mainPage = new Main(username.Text,result,password.Text);
+=======
+                Main mainPage = new Main(username.Text,result);
+>>>>>>> API
                 mainPage.Show();
                 this.Hide();
             }
