@@ -337,6 +337,17 @@ namespace SimpleBooking.Share
         }
 
 
+        // DELETE
 
+        // DELETE booking
+        public static async Task<HttpResponseMessage> DeleteBooking(int id, string username, string password)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.DeleteAsync(api + $"Bookings/{id}?username={username}&password={password}");
+
+                return response;
+            }
+        }
     }
 }

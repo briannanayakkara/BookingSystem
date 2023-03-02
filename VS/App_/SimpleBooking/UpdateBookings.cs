@@ -315,5 +315,22 @@ namespace SimpleBooking
                 MessageBox.Show("Failed to get bookings data.");
             }
         }
+
+        private async void DeleteBookingBtn_Click(object sender, EventArgs e)
+        {
+            var result = await ApiHelper.DeleteBooking(int.Parse(comboBookingID.Text), _username, _password);
+
+            if (result.IsSuccessStatusCode)
+            {
+                MessageBox.Show("BookingID: "+comboBookingID.Text+ " has been deleted!");
+                ResetFields();
+            }
+            else
+            {
+                MessageBox.Show(result.ToString());
+
+            }
+        }
+
     }
 }

@@ -59,6 +59,7 @@
             this.dataV = new System.Windows.Forms.DataGridView();
             this.Statusbtn = new System.Windows.Forms.Button();
             this.AllBookingsBtn = new System.Windows.Forms.Button();
+            this.DeleteBookingBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Pax_)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PaxPick)).BeginInit();
@@ -315,8 +316,20 @@
             this.AllBookingsBtn.UseVisualStyleBackColor = true;
             this.AllBookingsBtn.Click += new System.EventHandler(this.AllBookingsBtn_Click);
             // 
+            // DeleteBookingBtn
+            // 
+            this.DeleteBookingBtn.BackColor = System.Drawing.Color.Red;
+            this.DeleteBookingBtn.Location = new System.Drawing.Point(395, 59);
+            this.DeleteBookingBtn.Name = "DeleteBookingBtn";
+            this.DeleteBookingBtn.Size = new System.Drawing.Size(101, 47);
+            this.DeleteBookingBtn.TabIndex = 23;
+            this.DeleteBookingBtn.Text = "DELETE BOOKING";
+            this.DeleteBookingBtn.UseVisualStyleBackColor = false;
+            this.DeleteBookingBtn.Click += new System.EventHandler(this.DeleteBookingBtn_Click);
+            // 
             // UpdateBookings
             // 
+            this.Controls.Add(this.DeleteBookingBtn);
             this.Controls.Add(this.AllBookingsBtn);
             this.Controls.Add(this.dataV);
             this.Controls.Add(this.Statusbtn);
@@ -379,5 +392,6 @@
         private DataGridView dataV;
         private Button Statusbtn;
         private Button AllBookingsBtn;
+        private Button DeleteBookingBtn;
     }
 }

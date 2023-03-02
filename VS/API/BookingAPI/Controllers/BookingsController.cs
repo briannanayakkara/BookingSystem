@@ -335,9 +335,21 @@ namespace BookingAPI.Controllers
 
         // DELETE api/<BookingsController>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteBooking(int id, string username)
+        public async Task<ActionResult> DeleteBooking(int id, string username, string password)
         {
             using var con = new SqlConnection(_configuration.GetConnectionString("BookingSystem"));
+
+            var user = await con.QuerySingleOrDefaultAsync<UserLogin>(
+                "SELECT * FROM UserLogin WHERE Username = @Username", new { Username = username });
+            if (user == null)
+            {
+                return BadRequest("User does not exist");
+            }
+
+            if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
+            {
+                return BadRequest("Invalid password");
+            }
 
             var booking = await con.QuerySingleOrDefaultAsync<Bookings>(
                 "SELECT * FROM Bookings WHERE ID = @ID", new { ID = id });
